@@ -78,6 +78,11 @@ a:hover, a:active {
 	-webkit-border-radius: 5px;
 }
 
+#mapcanvas {
+	width: 500px;
+	height: 400px;
+}
+
 .content {
 	width: 70%;
 	float: left;

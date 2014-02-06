@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>The Game</title>
+	<!--   <link rel='stylesheet' type="test/css" media='screen and (min-width: 601px)' href='css/gameStyle.css'/>
+	<link rel='stylesheet' type="test/css" media='screen and (min-width: 150px) and (max-width: 600px)' href='css/gameStyle-thin.css'/> -->
+	<link rel='stylesheet' type="test/css" href='css/gameStyle.css'/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.8">
+	<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script>
+		function initialize() {
+			var mapCanvas = document.getElementById('mapcanvas');
+			var mapOptions = {
+				center : new google.maps.LatLng(44.5403, -78.5463),
+				zoom : 8,
+				mapTypeId : google.maps.MapTypeId.ROADMAP
+			}
+			var map = new google.maps.Map(map_canvas, map_options);
+		}
+		google.maps.event.addDomListener(window, 'load', initialize);
+	</script>
+
+</head>
+<body class="body">
+
+	<header class="mainheader">
+		<img src="img/rabbit.png">
+		
+		<nav><ul>
+			<li class="active"><a href="#">Home</a></li>
+			<li><a href="#">Current Games</a></li>
+			<li><a href="#">New Game</a></li>
+			<li><a href="#">Home</a></li>
+		</ul></nav>
+	</header>
+		
+	<div class="maincontent">
+		<div class="content">
+			<div id="mapcanvas"></div>
+		</div>
+	</div>
+	
+	<aside class="top-sidebar">
+		<article>
+			<h2>Top Sidebar</h2>
+			<p>Due to many many changes, the UI and parts of the 
+			business logic will completely be rethought and reimplemented<p>
+		</article>
+	</aside>
+	
+	<aside class="middle-sidebar">
+		<article>
+			<h2>Middle Sidebar</h2>
+			<p>We're crating a new Java Enterprise application, replacing an legacy JSP 
+			solution. <p>
+		</article>
+	</aside>
+	
+	<aside class="bottom-sidebar">
+		<article>
+			<h2>Bottom Sidebar</h2>
+			<p>We're crating a new Java Enterprise application, replacing an legacy JSP 
+			solution. Due to many many changes, the UI<p>
+		</article>
+	</aside>
+	
+	<footer class="mainfooter">
+		<p>Copyright &copy; 2014 <a href="#" title="Charles Mc Kenna">Charles Mc Kenna</a></p>
+	</footer>
+</body>
+</html>
