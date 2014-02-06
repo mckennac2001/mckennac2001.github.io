@@ -29,7 +29,7 @@ a:hover, a:active {
 }
 
 .mainheader img {
-	width: 30%;
+	width: 20%;
 	height: auto;
 	margin: 2% 0;
 }
@@ -166,7 +166,7 @@ a:hover, a:active {
 	}	
 	
 	.mainheader img {
-		width: 90%;
+		width: 0%;
 	}	
 	
 	.mainheader nav {
