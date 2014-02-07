@@ -11,7 +11,7 @@ function initialiseMyLocation(location) {
 
 function panToMyLocation() {
 	if (myLocation != null) {
-		map.panTo(myLocation.coords.latitude, myLocation.coords.longitude);
+		map.panTo(new LatLng(myLocation.coords.latitude, myLocation.coords.longitude));
 	}
 }
 
