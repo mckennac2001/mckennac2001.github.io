@@ -5,14 +5,12 @@ var myLocation = null;
 
 function initialiseMyLocation(location) {
 	console.log(location);
-	alert("MyLoc: " + location.coords.latitude + " " + location.coords.longitude);
 	myLocation = location;
 }
 
 function panToMyLocation() {
 	
 	if (myLocation != null) {
-		
 		var latlng = new google.maps.LatLng(myLocation.coords.latitude, myLocation.coords.longitude);
 		console.log(latlng);
 		map.panTo(latlng);

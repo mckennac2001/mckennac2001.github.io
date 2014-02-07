@@ -1,7 +1,18 @@
 
-var gameRef = new Firebase('https://the-game.firebaseio.com');
+var baseRef = new Firebase('https://the-game.firebaseio.com');
+var gamesPath = "/dynamic/games/";
 
-var auth = new FirebaseSimpleLogin(gameRef, function(error, user) {
+function requestGames() {
+	var childRef = baseRef.child(gamesPath);
+	
+	childRef.on('child_added', function(snapshot) {
+		var aGame = snapshot.val();
+		var name = aGame.game_name;
+		console.log('Game Name: ' + name);
+	});
+}
+
+var auth = new FirebaseSimpleLogin(baseRef, function(error, user) {
 	if (error) {
 		// an error occurred while attempting login
 		console.log(error);
@@ -19,3 +30,5 @@ auth.login('password', {
 	password: 'thegame',
 	rememberMe: true
 });
+
+requestGames();
