@@ -81,7 +81,7 @@ function initialize() {
 
 	$('#showTargets').click(showMarkers);
 	$('#hideTargets').click(clearMarkers);
-	$('#myLocation').click(panToMyLocation(myLocation));
+	$('#myLocation').click(panToMyLocation);
 }
 
 function detectBrowser() {
