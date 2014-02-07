@@ -9,6 +9,7 @@ function requestGames() {
 		var aGame = snapshot.val();
 		var name = aGame.game_name;
 		console.log('Game Name: ' + name);
+		$("#gameSelect").append('<option value=' + name + '>' + name + '</option>');
 	});
 }
 
