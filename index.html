@@ -13,30 +13,8 @@
 	<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.3/firebase.js'></script>
 	<script type='text/javascript' src='https://cdn.firebase.com/js/simple-login/1.2.5/firebase-simple-login.js'></script>
 	
-	<script type="text/javascript">
-		var gameRef = new Firebase('https://the-game.firebaseio.com');
-		var auth = new FirebaseSimpleLogin(gameRef, function(error, user) {
-		  if (error) {
-		    // an error occurred while attempting login
-		    console.log(error);
-		    alert(error);
-		  } else if (user) {
-		    // user authenticated with Firebase
-		    console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
-		    alert('User ID: ' + user.id + ', Provider: ' + user.provider);
-		  } else {
-		    // user is logged out
-		    alert("user is logged out!");
-		  }
-		});
-		
-		alert("loggin in");
-		auth.login('password', {
-			  email: 'mckenna.charles@gmail.com',
-			  password: 'thegame',
-			  rememberMe: true
-		});
-	</script>
+	<script type="text/javascript" src='js/firebase.js'></script>
+
 </head>
 
 <body class="body">
