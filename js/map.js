@@ -15,7 +15,7 @@ function panToMyLocation() {
 		
 		var latlng = new google.maps.LatLng(myLocation.coords.latitude, myLocation.coords.longitude);
 		console.log(latlng);
-		map.panTo(new LatLng(myLocation.coords.latitude, myLocation.coords.longitude));
+		map.panTo(latlng);
 	} else {
 		console.log("myLocation was null");
 	}
