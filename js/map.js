@@ -5,13 +5,13 @@ var myLocation = null;
 
 function initialiseMyLocation(location) {
 	console.log(location);
-	alert(location.coords.latitude + " " + location.coords.longitude);
+	alert("MyLoc: " + location.coords.latitude + " " + location.coords.longitude);
 	myLocation = location;
 }
 
-function panToMyLocation(location) {
-	if (location != null) {
-		map.panTo(location.coords.latitude, location.coords.longitude);
+function panToMyLocation() {
+	if (myLocation != null) {
+		map.panTo(myLocation.coords.latitude, myLocation.coords.longitude);
 	}
 }
 
