@@ -5,7 +5,7 @@ var myLocation = null;
 
 function initialiseMyLocation(location) {
 	console.log(location);
-	alert(location);
+	alert(location.coords.latitude + " " + location.coords.longitude);
 	myLocation = location;
 }
 
@@ -79,12 +79,11 @@ function initialize() {
 	$('#showTargets').click(showMarkers);
 	$('#hideTargets').click(clearMarkers);
 	$('#myLocation').click(panToMyLocation(myLocation));
-
 }
 
 function detectBrowser() {
 	var useragent = navigator.userAgent;
-	var mapdiv = document.getElementById("map-canvas");
+	var mapdiv = document.getElementById("mapcanvas");
 
 	if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
 		mapdiv.style.width = '100%';
