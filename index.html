@@ -2,17 +2,46 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.8">
+	
 	<title>The Game</title>
+	
 	<!--   <link rel='stylesheet' type="test/css" media='screen and (min-width: 601px)' href='css/gameStyle.css'/>
 	<link rel='stylesheet' type="test/css" media='screen and (min-width: 150px) and (max-width: 600px)' href='css/gameStyle-thin.css'/> -->
 	<link rel='stylesheet' type="test/css" href='css/gameStyle.css'/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.8">
+
+	<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.3/firebase.js'></script>
+	<script type='text/javascript' src='https://cdn.firebase.com/js/simple-login/1.2.5/firebase-simple-login.js'></script>
+	
+	<script type="text/javascript">
+		var gameRef = new Firebase('https://the-game.firebaseio.com');
+		var auth = new FirebaseSimpleLogin(gameRef, function(error, user) {
+		  if (error) {
+		    // an error occurred while attempting login
+		    console.log(error);
+		    alert(error);
+		  } else if (user) {
+		    // user authenticated with Firebase
+		    console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
+		    alert('User ID: ' + user.id + ', Provider: ' + user.provider);
+		  } else {
+		    // user is logged out
+		    alert("user is logged out!");
+		  }
+		});
+		
+		alert("loggin in");
+		auth.login('password', {
+			  email: 'mckenna.charles@gmail.com',
+			  password: 'thegame',
+			  rememberMe: true
+		});
+	</script>
 </head>
+
 <body class="body">
 
 	<header class="mainheader">
-		<img src="img/rabbit.png">
-		
 		<nav><ul>
 			<li class="active"><a href="#">Home</a></li>
 			<li><a href="game.html">Current Games</a></li>
@@ -55,11 +84,7 @@
 	</div>
 	
 	<aside class="top-sidebar">
-		<article>
-			<h2>Top Sidebar</h2>
-			<p>Due to many many changes, the UI and parts of the 
-			business logic will completely be rethought and reimplemented<p>
-		</article>
+		<img src="img/rabbit.png">
 	</aside>
 	
 	<aside class="middle-sidebar">

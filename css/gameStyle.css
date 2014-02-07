@@ -28,8 +28,8 @@ a:hover, a:active {
 	clear: both;
 }
 
-.mainheader img {
-	width: 20%;
+.top-sidebar img {
+	width: 96%;
 	height: auto;
 	margin: 2% 0;
 }
@@ -81,6 +81,7 @@ a:hover, a:active {
 #mapcanvas {
 	width: 100%;
 	height: 400px;
+	margin: 2%;
 }
 
 .content {
