@@ -1,10 +1,12 @@
 
+/*
 auth.login('password', {
 	email: 'mckenna.charles@gmail.com',
 	password: 'thegame',
 	rememberMe: true
 });
-	
+	*/
+
 $(document).ready(function() {
 	
 	$("#printGameData").click(function () {

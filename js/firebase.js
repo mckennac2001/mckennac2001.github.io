@@ -20,6 +20,12 @@ var auth = new FirebaseSimpleLogin(baseRef, function(error, user) {
 	}
 });
 
+auth.login('password', {
+	email: 'mckenna.charles@gmail.com',
+	password: 'thegame',
+	rememberMe: true
+});
+
 // Retrieve all the games data
 function requestGames() {
 	
