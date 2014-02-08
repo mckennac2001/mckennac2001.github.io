@@ -5,22 +5,38 @@ var gamesPath = "/dynamic/games/";
 var gamesIds = new Array();
 var gameSnapshots = new Array();
 
+// Start the Firebase communication
+var auth = new FirebaseSimpleLogin(baseRef, function(error, user) {
+	if (error) {
+		// an error occurred while attempting login
+		console.log(error);
+	} else if (user) {
+		// user authenticated with Firebase
+		console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
+		requestGames();
+	} else {
+		// user is logged out
+		console.log("User is logged out");
+	}
+});
 
-function requestGames(callback) {
+// Retrieve all the games data
+function requestGames() {
 	
 	var childRef = baseRef.child(gamesPath);
-	childRef.once('child_added', function(snapshot) {
+	childRef.on('child_added', function(snapshot) {
+		// This is called for each Game in the DB
 		
 		// Store this snapshot
 		gameSnapshots.push(snapshot);
 		// Parse this snapshot and write out to console
 		var id = parseGameSnapshot(snapshot);
 
-		// Add the game ids to the select list 
+		// Add the game id to the select list in index.html
 		$("#gameSelect").append('<option value=' + id + '>' + id + '</option>');
 		$(".middle-sidebar ul").append('<li>' + id + '</li>');
 		
-		// Select list candy
+		// Select list eye candy
 		$(".middle-sidebar li").mouseenter(function() {
 			$(this).css("color", "red");
 		});
@@ -60,8 +76,6 @@ function parseGameSnapshot(snapshot) {
 	
 	parsePlayers(playersSnapshot);
 	parseTargets(targetsSnapshot);
-
-
 	
 	return id;
 }
@@ -82,7 +96,7 @@ function parsePlayers(playersSnapshot) {
 	});	
 }
 
-function parseTargets(playersSnapshot) {
+function parseTargets(targetsSnapshot) {
 	// Loop through all the Targets
 	targetsSnapshot.forEach(function(childSnapshot) {
 		  
@@ -97,20 +111,6 @@ function parseTargets(playersSnapshot) {
 	});
 }
 
-var auth = new FirebaseSimpleLogin(baseRef, function(error, user) {
-	if (error) {
-		// an error occurred while attempting login
-		console.log(error);
-	} else if (user) {
-		// user authenticated with Firebase
-		console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
-		requestGames();
-	} else {
-		// user is logged out
-		console.log("User is logged out");
-	}
-	
-});
 
 
 
