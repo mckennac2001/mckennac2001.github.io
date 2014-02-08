@@ -10,11 +10,12 @@
 	<link rel='stylesheet' type="test/css" media='screen and (min-width: 150px) and (max-width: 600px)' href='css/gameStyle-thin.css'/> -->
 	<link rel='stylesheet' type="test/css" href='css/gameStyle.css'/>
 
-	<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.3/firebase.js'></script>
-	<script type='text/javascript' src='https://cdn.firebase.com/js/simple-login/1.2.5/firebase-simple-login.js'></script>
+	<script src='https://cdn.firebase.com/js/client/1.0.3/firebase.js'></script>
+	<script src='https://cdn.firebase.com/js/simple-login/1.2.5/firebase-simple-login.js'></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 	
-	<script type="text/javascript" src='js/firebase.js'></script>
+	<script src='js/firebase.js'></script>
+	<script src='js/index.js'></script>
 
 </head>
 
@@ -34,6 +35,7 @@
 			<article class="topcontent">
 				<header>
 					<h2><a href="#" title="First Post">First Post</a></h2>
+					<button id="printGameData">Game Data</button>
 				</header>
 				<footer>
 					<p class="post-info">This was written by Charles Mc Kenna</p>
@@ -69,10 +71,13 @@
 	</aside>
 
 	<aside class="middle-sidebar">
-		<img src="img/rabbit.png">
+		<h3>Select a Game to join</h3>
+		<ul>
+		</ul>
 	</aside>
 	
 	<aside class="bottom-sidebar">
+		<img class="big-rabbit-img" src="img/rabbit.png">
 		<article>
 			<h2>Bottom Sidebar</h2>
 			<p>We're crating a new Java Enterprise application, replacing an legacy JSP 

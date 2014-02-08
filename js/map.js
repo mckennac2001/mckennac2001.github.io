@@ -2,6 +2,7 @@
 var map;
 var markers = [];
 var myLocation = null;
+var gameId;
 
 function initialiseMyLocation(location) {
 	console.log(location);
@@ -97,3 +98,14 @@ function detectBrowser() {
 		mapdiv.style.height = '800px';
 	}
 }
+
+// On startup
+$(document).ready(function() {
+	if ( sessionStorage.getItem("gameid")) {
+		// Restore the contents of the text field
+		var gameId = sessionStorage.getItem("gameid");
+		console.log('gameid=' + gameId);
+	}
+});
+
+
