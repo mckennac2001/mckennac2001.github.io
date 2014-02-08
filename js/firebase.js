@@ -1,4 +1,5 @@
 
+
 var baseRef = new Firebase('https://the-game.firebaseio.com');
 var gamesPath = "/dynamic/games/";
 
@@ -20,9 +21,10 @@ var auth = new FirebaseSimpleLogin(baseRef, function(error, user) {
 	} else if (user) {
 		// user authenticated with Firebase
 		console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
+		requestGames();
 	} else {
 		// user is logged out
-		console.log("user is logged out!");
+		console.log("User is logged out");
 	}
 });
 
@@ -32,4 +34,7 @@ auth.login('password', {
 	rememberMe: true
 });
 
-requestGames();
+$('#gameSelect').onSelect(function() {    
+	console.log("Selected ");
+    //$('#SelectTitle').text( '$' + $(':selected', this).data("value") );
+});
