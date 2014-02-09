@@ -174,7 +174,7 @@ a:hover, a:active {
 	color: #FFF;
 }
 	
-@media only screen and (min-width: 150px) and (max-width: 500px) {
+@media only screen and (min-width: 150px) and (max-width: 800px) {
 
 	.body {
 		width: 100%;
@@ -236,7 +236,7 @@ a:hover, a:active {
 	}
 	
 }
-
+/*
 @media only screen and (min-width: 500px) and (max-width: 700px) {
 	.body {
 		width: 95%;
@@ -258,7 +258,7 @@ a:hover, a:active {
 	}
 }
 
-
+*/
 
 
 
