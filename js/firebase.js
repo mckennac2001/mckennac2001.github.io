@@ -31,7 +31,7 @@ auth.login('password', {
 	rememberMe: true
 });
 
-// Retrieve all the games data and ass it to the select list
+// Retrieve all the games data and add it to the select list
 function populateGameIdList() {
 	
 	var childRef = baseRef.child(gamesPath);
@@ -84,6 +84,7 @@ function populateMap(gameId) {
 		var location = 		aGame.game_location;
 		var numPlayers = 	aGame.game_number_of_players;
 		
+		$('#gametitle').text(name);
 		$('#mapcanvas').css('visibility', 'visible');
 		
 		playersSnapshot.forEach(function(childSnapshot) {
