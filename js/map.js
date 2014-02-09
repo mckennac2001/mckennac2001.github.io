@@ -90,6 +90,8 @@ function initialize() {
 	populateMap(gameId);
 }
 
+
+
 function detectBrowser() {
 	var useragent = navigator.userAgent;
 	var mapdiv = document.getElementById("mapcanvas");

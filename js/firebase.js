@@ -4,6 +4,7 @@ var baseRef = new Firebase('https://the-game.firebaseio.com');
 var gamesPath = "/dynamic/games/";
 var gamesIds = new Array();
 var gameSnapshots = new Array();
+var firstDraw = true;
 
 // Start the Firebase communication
 var auth = new FirebaseSimpleLogin(baseRef, function(error, user) {
@@ -58,6 +59,49 @@ function populateGameIdList() {
 	});
 }
 
+function addMarkerPopups(marker) {
+
+	// Create an info window with the markers text
+	//var infowindow = new google.maps.InfoWindow({
+	//	content: marker.getTitle()
+	//});
+
+	var infobox = new InfoBox({
+		content: "<h2>" + marker.getTitle() + "</h2>",
+		disableAutoPan: false,
+		maxWidth: 150,
+		pixelOffset: new google.maps.Size(-140, 0),
+		zIndex: null,
+		/*boxClass: "infoBox1",*/
+		boxStyle: {
+			background: "img/red.jpg",
+			opacity: 1,
+			width: "150px",
+			"border-style": "groove",
+			"background-color": "#FFF",
+			"border-radius": "8px"
+		},
+		closeBoxURL: "",
+		infoBoxClearance: new google.maps.Size(1, 1)
+	});
+
+	google.maps.event.addListener(marker, 'click', function() {
+		infobox.open(map, marker);
+		map.panTo(marker.position);
+	});
+	
+	// Add a listiner so the info window would be displayed on rollower
+	google.maps.event.addListener(marker,"mouseover",function(){
+		//infowindow.open(marker.get('map'), marker);
+		infobox.open(map, marker);
+	}); 
+
+	google.maps.event.addListener(marker,"mouseout",function(){
+		//infowindow.close();
+		infobox.close();
+	}); 
+}
+
 
 function populateMap(gameId) {
 	
@@ -108,10 +152,12 @@ function populateMap(gameId) {
 				  icon: "img/bats.png"
 			  });
 			  
-			  google.maps.event.addListener(marker, 'click', function() {
+			  addMarkerPopups(marker);
+			  			  
+			  /*google.maps.event.addListener(marker, 'click', function() {
 				  console.log('marker=' + marker.getTitle());
 			  });
-
+*/
 			  console.log('Player Name=' + name + " Id=" + id + " Latitude=" + latitude + " Longitude=" + longitude + " speed=" + speed);
 		});		
 		
@@ -135,12 +181,17 @@ function populateMap(gameId) {
 				  icon: "img/shootingrange.png"
 			  });
 			  
-			  map.setCenter(marker.getPosition());
-			  map.setZoom(13);
+			  addMarkerPopups(marker);
 			  
-			  google.maps.event.addListener(marker, 'click', function() {
+			  if (firstDraw) {
+				  // refocus 
+				  map.setCenter(marker.getPosition());
+				  map.setZoom(13);
+				  firstDraw = false;
+			  }
+/*			  google.maps.event.addListener(marker, 'click', function() {
 				  console.log('marker=' + marker.getTitle());
-			  });
+			  });*/
 			  
 			  console.log('Target Name=' + name + " Id=" + id + " Latitude=" + latitude + " Longitude=" + longitude + " speed=" + speed);
 		});
