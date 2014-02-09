@@ -13,7 +13,12 @@ var auth = new FirebaseSimpleLogin(baseRef, function(error, user) {
 	} else if (user) {
 		// user authenticated with Firebase
 		console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
-		requestGames();
+		if (page == "index") {
+			populateGameIdList(); 
+		} else {
+			populateMap();
+		}
+		
 	} else {
 		// user is logged out
 		console.log("User is logged out");
@@ -26,8 +31,8 @@ auth.login('password', {
 	rememberMe: true
 });
 
-// Retrieve all the games data
-function requestGames() {
+// Retrieve all the games data and ass it to the select list
+function populateGameIdList() {
 	
 	var childRef = baseRef.child(gamesPath);
 	childRef.on('child_added', function(snapshot) {
@@ -53,14 +58,96 @@ function requestGames() {
 	});
 }
 
-function requestOneGame(gameId) {
+
+function populateMap(gameId) {
 	
+	console.log('populateMap');
+			
 	var childRef = baseRef.child(gamesPath + gameId);
-	childRef.once('value', function(snapshot) {
+	childRef.on('value', function(snapshot) {
+		
+		console.log('populateMap callback');
 		
 		// Parse this snapshot and write out to console
-		var id = parseGameSnapshot(snapshot);
+			console.log('snapshot=' + snapshot);
+		var id = 				snapshot.name();
+			console.log('id=' + id);
+		var aGame = 			snapshot.val();
+		
+		if (aGame == null) return;
+		
+			console.log('aGame=' + aGame);
+		var playersSnapshot = 	snapshot.child("game_players");
+		var targetsSnapshot = 	snapshot.child("game_targets");
+		
+		var name = 			aGame.game_name;
+		var location = 		aGame.game_location;
+		var numPlayers = 	aGame.game_number_of_players;
+		
+		$('#mapcanvas').css('visibility', 'visible');
+		
+		playersSnapshot.forEach(function(childSnapshot) {
+			  
+			  var playerHash = 	childSnapshot.name();
+			  var playerData = 	childSnapshot.val();
+			  var id = 			playerData.id;
+			  var name = 		playerData.name;
+			  var latitude = 	playerData.latitude;
+			  var longitude = 	playerData.longitude;
+			  var speed = 		playerData.speedHeight;
+			  
+			  var pos = new google.maps.LatLng(latitude, longitude);
+			  
+			  var marker = new google.maps.Marker({
+				  position: pos,
+				  clickable: true,
+				  zIndex: 2,
+				  title: name + " speed=" + speed,
+				  map: map,
+				  icon: "img/bats.png"
+			  });
+			  
+			  google.maps.event.addListener(marker, 'click', function() {
+				  console.log('marker=' + marker.getTitle());
+			  });
+
+			  console.log('Player Name=' + name + " Id=" + id + " Latitude=" + latitude + " Longitude=" + longitude + " speed=" + speed);
+		});		
+		
+		targetsSnapshot.forEach(function(childSnapshot) {
+			  
+			  var playerData = 	childSnapshot.val();
+			  var id = 			playerData.id;
+			  var name = 		playerData.name;
+			  var latitude = 	playerData.latitude;
+			  var longitude = 	playerData.longitude;
+			  var speed = 		playerData.speedHeight;
+			  
+			  var pos = new google.maps.LatLng(latitude, longitude);
+			  
+			  var marker = new google.maps.Marker({
+				  position: pos,
+				  clickable: true,
+				  zIndex: 2,
+				  title: name,
+				  map: map,
+				  icon: "img/shootingrange.png"
+			  });
+			  
+			  map.setCenter(marker.getPosition());
+			  map.setZoom(13);
+			  
+			  google.maps.event.addListener(marker, 'click', function() {
+				  console.log('marker=' + marker.getTitle());
+			  });
+			  
+			  console.log('Target Name=' + name + " Id=" + id + " Latitude=" + latitude + " Longitude=" + longitude + " speed=" + speed);
+		});
+		
+		console.log('populateMap callback end');
 	});
+	
+	console.log('populateMap end');
 }
 
 // Parse a game snapshot and ????

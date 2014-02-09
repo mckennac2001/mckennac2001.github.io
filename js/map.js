@@ -1,9 +1,9 @@
-
+/*
 var map;
 var markers = [];
 var myLocation = null;
 var gameId;
-
+*/
 function initialiseMyLocation(location) {
 	console.log(location);
 	myLocation = location;
@@ -71,19 +71,22 @@ function initialize() {
 	navigator.geolocation.getCurrentPosition(initialiseMyLocation);
 
 	var mapOptions = {
-			zoom : 10,
+			zoom : 12,
 			center : new google.maps.LatLng(53.33, -6.2)
 	};
 
 	map = new google.maps.Map(document.getElementById('mapcanvas'),	mapOptions);
 
-	google.maps.event.addListener(map, 'click', function(event) {
+/*	google.maps.event.addListener(map, 'click', function(event) {
 		addMarker(event.latLng);
-	});
+	}); */
 
-	$('#showTargets').click(showMarkers);
-	$('#hideTargets').click(clearMarkers);
+	$('#mapcanvas').css('visibility', 'hidden');
+//	$('#showTargets').click(showMarkers);
+//	$('#hideTargets').click(clearMarkers);
 	$('#myLocation').click(panToMyLocation);
+	
+	populateMap(gameId);
 }
 
 function detectBrowser() {
@@ -103,7 +106,7 @@ function detectBrowser() {
 $(document).ready(function() {
 	if ( sessionStorage.getItem("gameid")) {
 		// Restore the contents of the text field
-		var gameId = sessionStorage.getItem("gameid");
+		gameId = sessionStorage.getItem("gameid");
 		console.log('gameid=' + gameId);
 	}
 });
