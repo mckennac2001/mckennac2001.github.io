@@ -11,15 +11,35 @@
 	<!--   <link rel='stylesheet' type="test/css" media='screen and (min-width: 601px)' href='css/gameStyle.css'/>
 	<link rel='stylesheet' type="test/css" media='screen and (min-width: 150px) and (max-width: 600px)' href='css/gameStyle-thin.css'/> -->
 	<link rel='stylesheet' type="test/css" href='css/gameStyle.css'/>
-
+<!-- 
 	<script src='https://cdn.firebase.com/js/client/1.0.3/firebase.js'></script>
 	<script src='https://cdn.firebase.com/js/simple-login/1.2.5/firebase-simple-login.js'></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 	
-	<script>var page = "index";</script>
-	<script src='js/firebase.js'></script>
-	<script src='js/index.js'></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+	<script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+	 -->
+	<script src='js_downloaded/firebase.js'></script>
+	<script src='js_downloaded/firebase-simple-login.js'></script>
+	<script src="js_downloaded/jquery.min.js"></script>
 	
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+	<script src="js_downloaded/infobox.js"></script>	 
+
+	<script>
+		var map;
+		var markers = [];
+		var myLocation = null;
+		var gameId;
+	</script>
+	
+	<script src='js/firebase.js'></script>
+	<script src="js/map.js"></script>
+	<script src='js/index.js'></script>
+
+	<script>
+		google.maps.event.addDomListener(window, 'load', initialize);
+	</script>	
 
 
 </head>
@@ -64,6 +84,16 @@
 					<p>Secondly, it is way too complicated. Its complexity is outstanding. If you ask me, it's a poor abstraction of basic web technologies, crippled and useless in the end. What benefits do I have? None, if you think about. Hundreds of components? I see ten-thousands</p>
 				</content>
 			</article>
+			
+			<div class="mapcontent">
+				<h3 id="gametitle"></h3>
+				<div id="mapcanvas"></div>
+				<button id="reset">Reset</button>
+				<button id="myLocation">My Location</button>
+	<!-- 		<button id="showTargets">Show Targets</button>
+				<button id="hideTargets">Remove Targets</button> -->
+			</div>
+			
 		</div>
 	</div>
 

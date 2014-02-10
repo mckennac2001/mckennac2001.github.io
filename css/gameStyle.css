@@ -93,6 +93,10 @@ a:hover, a:active {
 	float: left;
 }
 
+.mapcontent {
+	display: none;
+}
+
 .topcontent {
 	background-color: #FFF;
 	border-radius: 5px;

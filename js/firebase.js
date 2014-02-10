@@ -14,11 +14,13 @@ var auth = new FirebaseSimpleLogin(baseRef, function(error, user) {
 	} else if (user) {
 		// user authenticated with Firebase
 		console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
-		if (page == "index") {
+/*		if (page == "index") {
 			populateGameIdList(); 
 		} else {
 			populateMap();
-		}
+		}*/
+		
+		populateGameIdList(); 
 		
 	} else {
 		// user is logged out
@@ -35,18 +37,25 @@ auth.login('password', {
 // Retrieve all the games data and add it to the select list
 function populateGameIdList() {
 	
+	console.log('populateGameIdList');
+	
 	var childRef = baseRef.child(gamesPath);
 	childRef.on('child_added', function(snapshot) {
 		// This is called for each Game in the DB
 		
+		console.log('populateGameIdList callback');
+		
+		// Stop observing the last 
 		// Store this snapshot
-		gameSnapshots.push(snapshot);
+//		gameSnapshots.push(snapshot);
 		// Parse this snapshot and write out to console
-		var id = parseGameSnapshot(snapshot);
+		var aGame = parseGameSnapshot(snapshot);
 
+		console.log('aGame id=' + aGame.id + ', name=' + aGame.name);
+		
 		// Add the game id to the select list in index.html
-		$("#gameSelect").append('<option value=' + id + '>' + id + '</option>');
-		$(".middle-sidebar ul").append('<li>' + id + '</li>');
+		$("#gameSelect").append('<option value=' + aGame.id + '>' + aGame.name + '</option>');
+		$(".middle-sidebar ul").append('<li>' + aGame.name + '</li>');
 		
 		// Select list eye candy
 		$(".middle-sidebar li").mouseenter(function() {
@@ -61,6 +70,8 @@ function populateGameIdList() {
 
 function addMarkerPopups(marker) {
 
+	console.log('addMarkerPopups');
+	
 	// Create an info window with the markers text
 	//var infowindow = new google.maps.InfoWindow({
 	//	content: marker.getTitle()
@@ -108,7 +119,7 @@ function populateMap(gameId) {
 	console.log('populateMap');
 			
 	var childRef = baseRef.child(gamesPath + gameId);
-	childRef.on('value', function(snapshot) {
+	childRef.once('value', function(snapshot) {
 		
 		console.log('populateMap callback');
 		
@@ -121,45 +132,17 @@ function populateMap(gameId) {
 		if (aGame == null) return;
 		
 			console.log('aGame=' + aGame);
-		var playersSnapshot = 	snapshot.child("game_players");
+//		var playersSnapshot = 	snapshot.child("game_players");
 		var targetsSnapshot = 	snapshot.child("game_targets");
 		
 		var name = 			aGame.game_name;
-		var location = 		aGame.game_location;
-		var numPlayers = 	aGame.game_number_of_players;
+//		var location = 		aGame.game_location;
+//		var numPlayers = 	aGame.game_number_of_players;
 		
 		$('#gametitle').text(name);
 		$('#mapcanvas').css('visibility', 'visible');
 		
-		playersSnapshot.forEach(function(childSnapshot) {
-			  
-			  var playerHash = 	childSnapshot.name();
-			  var playerData = 	childSnapshot.val();
-			  var id = 			playerData.id;
-			  var name = 		playerData.name;
-			  var latitude = 	playerData.latitude;
-			  var longitude = 	playerData.longitude;
-			  var speed = 		playerData.speedHeight;
-			  
-			  var pos = new google.maps.LatLng(latitude, longitude);
-			  
-			  var marker = new google.maps.Marker({
-				  position: pos,
-				  clickable: true,
-				  zIndex: 2,
-				  title: name + " speed=" + speed,
-				  map: map,
-				  icon: "img/bats.png"
-			  });
-			  
-			  addMarkerPopups(marker);
-			  			  
-			  /*google.maps.event.addListener(marker, 'click', function() {
-				  console.log('marker=' + marker.getTitle());
-			  });
-*/
-			  console.log('Player Name=' + name + " Id=" + id + " Latitude=" + latitude + " Longitude=" + longitude + " speed=" + speed);
-		});		
+		populatePlayers(baseRef.child(gamesPath + gameId + '/' + "game_players"));
 		
 		targetsSnapshot.forEach(function(childSnapshot) {
 			  
@@ -202,29 +185,74 @@ function populateMap(gameId) {
 	console.log('populateMap end');
 }
 
-// Parse a game snapshot and ????
+function populatePlayers(playerRef)	{
+	
+	console.log('populatePlayers');
+	
+	playerRef.on('child_added', function(snapshot) {
+		
+		console.log('populatePlayers value');
+		
+		snapshot.forEach(function(childSnapshot) {
+			  
+			console.log('populatePlayers forEach');
+			
+			  var playerHash = 	childSnapshot.name();
+			  var playerData = 	childSnapshot.val();
+			  var id = 			playerData.id;
+			  var name = 		playerData.name;
+			  var latitude = 	playerData.latitude;
+			  var longitude = 	playerData.longitude;
+			  var speed = 		playerData.speedHeight;
+			  
+			  var pos = new google.maps.LatLng(latitude, longitude);
+			  
+			  var marker = new google.maps.Marker({
+				  position: pos,
+				  clickable: true,
+				  zIndex: 2,
+				  title: name + " speed=" + speed,
+				  map: map,
+				  icon: "img/bats.png"
+			  });
+			  
+			  addMarkerPopups(marker);
+			  			  
+			  console.log('Player Name=' + name + " Id=" + id + " Latitude=" + latitude + " Longitude=" + longitude + " speed=" + speed);
+		});		
+	});	
+}
+
+// Parse a game snapshot and return a BasicGame object
 function parseGameSnapshot(snapshot) {
 	
 	var id = 				snapshot.name();
 	var aGame = 			snapshot.val();
-	var playersSnapshot = 	snapshot.child("game_players");
-	var targetsSnapshot = 	snapshot.child("game_targets");
+//	var playersSnapshot = 	snapshot.child("game_players");
+//	var targetsSnapshot = 	snapshot.child("game_targets");
 	
 	var name = 			aGame.game_name;
 	var location = 		aGame.game_location;
 	var numPlayers = 	aGame.game_number_of_players;
 	
-	var aPlayer = playersSnapshot.numChildren();
+//	var aPlayer = playersSnapshot.numChildren();
 
+	var aGame = {
+		id: id,
+		name: name,
+		location: location,
+		numPlayers: numPlayers
+	}
+/*	
 	gamesIds += id;
 	console.log('Game Name=' + name + " Location=" + location + " #Players=" + numPlayers);
 	
 	parsePlayers(playersSnapshot);
 	parseTargets(targetsSnapshot);
-	
-	return id;
+*/	
+	return aGame;
 }
-
+/*
 function parsePlayers(playersSnapshot) {
 	// Loop through all the Players
 	playersSnapshot.forEach(function(childSnapshot) {
@@ -255,7 +283,7 @@ function parseTargets(targetsSnapshot) {
 		  console.log('Target Name=' + name + " Id=" + id + " Latitude=" + latitude + " Longitude=" + longitude + " speed=" + speed);
 	});
 }
-
+*/
 
 
 
