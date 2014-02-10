@@ -21,6 +21,7 @@ $(document).ready(function() {
 		//var selectedId = $('#gameSelect :selected').text();
 		//var selectedId = $('#gameSelect').find(":selected").text();
 		sessionStorage.setItem("gameid", selectedId);
+		location = "game.html";
 	    //$('#SelectTitle').text( '$' + $(':selected', this).data("value") );
 	});
 });
