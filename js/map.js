@@ -5,12 +5,14 @@ var myLocation = null;
 var gameId;
 */
 function initialiseMyLocation(location) {
+	console.log("initialiseMyLocation");
 	console.log(location);
 	myLocation = location;
 }
 
 function panToMyLocation() {
 	
+	console.log("panToMyLocation");
 	if (myLocation != null) {
 		var latlng = new google.maps.LatLng(myLocation.coords.latitude, myLocation.coords.longitude);
 		console.log(latlng);
@@ -20,9 +22,10 @@ function panToMyLocation() {
 		console.log("myLocation was null");
 	}
 }
-
+/*
 function populateMarkers() {
 
+	console.log("populateMarkers");
 	var markerArray = [new google.maps.LatLng(53.33, -6.2), new google.maps.LatLng(53.23, -6.1)]
 
 	for (var i=0; i<markerArray.length; i++) {
@@ -36,6 +39,7 @@ function populateMarkers() {
 
 // Add a marker to the map and push to the array.
 function addMarker(location) {
+	console.log("addMarker");
 	var marker = new google.maps.Marker({
 		position: location,
 		map: map,	
@@ -66,9 +70,9 @@ function deleteMarkers() {
 	clearMarkers();
 	markers = [];
 }
-
+*/
 function initialize() {
-
+	console.log("initialize");
 	navigator.geolocation.getCurrentPosition(initialiseMyLocation);
 
 	var mapOptions = {
@@ -82,17 +86,19 @@ function initialize() {
 		addMarker(event.latLng);
 	}); */
 
-	$('#mapcanvas').css('visibility', 'hidden');
+//	$('#mapcanvas').css('visibility', 'hidden');
 //	$('#showTargets').click(showMarkers);
 //	$('#hideTargets').click(clearMarkers);
 	$('#myLocation').click(panToMyLocation);
 	
+	firstDraw = true;
 	populateMap(gameId);
 }
 
 
 
 function detectBrowser() {
+	console.log("detectBrowser");
 	var useragent = navigator.userAgent;
 	var mapdiv = document.getElementById("mapcanvas");
 
@@ -104,7 +110,7 @@ function detectBrowser() {
 		mapdiv.style.height = '800px';
 	}
 }
-
+/*
 // On startup
 $(document).ready(function() {
 	if ( sessionStorage.getItem("gameid")) {
@@ -113,5 +119,5 @@ $(document).ready(function() {
 		console.log('gameid=' + gameId);
 	}
 });
-
+*/
 

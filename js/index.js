@@ -17,11 +17,11 @@ $(document).ready(function() {
 	// A Game was selected. Now we should fetch the game data and populate the map
 	$('#gameSelect').change(function() {    
 		console.log("Selected ");
-		var selectedId = $('#gameSelect').val();
-		console.log("Selected=" + selectedId);
+		gameId = $('#gameSelect').val();
+		console.log("Selected=" + gameId);
 		//var selectedId = $('#gameSelect :selected').text();
 		//var selectedId = $('#gameSelect').find(":selected").text();
-		sessionStorage.setItem("gameid", selectedId);
+//		sessionStorage.setItem("gameid", gameId);
 		//location = "game.html";
 	    $('.topcontent').css("display", "none");
 	    $('.bottomcontent').css("display", "none");

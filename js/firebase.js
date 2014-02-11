@@ -3,11 +3,12 @@
 var baseRef = new Firebase('https://the-game.firebaseio.com');
 var gamesPath = "/dynamic/games/";
 var gamesIds = new Array();
-var gameSnapshots = new Array();
+var firebaseRefList = new Array();
 var firstDraw = true;
 
 // Start the Firebase communication
 var auth = new FirebaseSimpleLogin(baseRef, function(error, user) {
+	console.log("FirebaseSimpleLogin");
 	if (error) {
 		// an error occurred while attempting login
 		console.log(error);
@@ -116,68 +117,36 @@ function addMarkerPopups(marker) {
 
 function populateMap(gameId) {
 	
-	console.log('populateMap');
+	console.log('populateMap ' + gamesPath + gameId);
 			
+	// We should destroy any subscriptions we have for old firebases
+	while (firebaseRefList.length > 0) {
+		firebaseRefList.pop().off();
+	}
+
 	var childRef = baseRef.child(gamesPath + gameId);
 	childRef.once('value', function(snapshot) {
 		
 		console.log('populateMap callback');
 		
-		// Parse this snapshot and write out to console
-			console.log('snapshot=' + snapshot);
+		// Parse this snapshot and write out to console;
 		var id = 				snapshot.name();
-			console.log('id=' + id);
 		var aGame = 			snapshot.val();
+		console.log('aGame=' + aGame);	
 		
 		if (aGame == null) return;
 		
-			console.log('aGame=' + aGame);
-//		var playersSnapshot = 	snapshot.child("game_players");
-		var targetsSnapshot = 	snapshot.child("game_targets");
-		
 		var name = 			aGame.game_name;
-//		var location = 		aGame.game_location;
+		var location = 		aGame.game_location;
 //		var numPlayers = 	aGame.game_number_of_players;
 		
-		$('#gametitle').text(name);
-		$('#mapcanvas').css('visibility', 'visible');
+		$('#gametitle').text(name + " : " + location);
+//		$('#mapcanvas').css('visibility', 'visible');
 		
-		populatePlayers(baseRef.child(gamesPath + gameId + '/' + "game_players"));
-		
-		targetsSnapshot.forEach(function(childSnapshot) {
-			  
-			  var playerData = 	childSnapshot.val();
-			  var id = 			playerData.id;
-			  var name = 		playerData.name;
-			  var latitude = 	playerData.latitude;
-			  var longitude = 	playerData.longitude;
-			  var speed = 		playerData.speedHeight;
-			  
-			  var pos = new google.maps.LatLng(latitude, longitude);
-			  
-			  var marker = new google.maps.Marker({
-				  position: pos,
-				  clickable: true,
-				  zIndex: 2,
-				  title: name,
-				  map: map,
-				  icon: "img/shootingrange.png"
-			  });
-			  
-			  addMarkerPopups(marker);
-			  
-			  if (firstDraw) {
-				  // refocus 
-				  map.setCenter(marker.getPosition());
-				  map.setZoom(13);
-				  firstDraw = false;
-			  }
-/*			  google.maps.event.addListener(marker, 'click', function() {
-				  console.log('marker=' + marker.getTitle());
-			  });*/
-			  
-			  console.log('Target Name=' + name + " Id=" + id + " Latitude=" + latitude + " Longitude=" + longitude + " speed=" + speed);
-		});
+//		console.log("players: " + gamesPath + gameId + '/' + 'game_players');
+		populatePlayers(baseRef.child(gamesPath + gameId + '/' + 'game_players'));
+//		console.log("targets: " + gamesPath + gameId + '/' + 'game_targets');
+		populateTargets(baseRef.child(gamesPath + gameId + '/' + 'game_targets'));
 		
 		console.log('populateMap callback end');
 	});
@@ -186,39 +155,74 @@ function populateMap(gameId) {
 }
 
 function populatePlayers(playerRef)	{
-	
+
 	console.log('populatePlayers');
-	
-	playerRef.on('child_added', function(snapshot) {
-		
+	firebaseRefList.push(playerRef);
+	playerRef.on('value', function(snapshot) {
+
 		console.log('populatePlayers value');
-		
 		snapshot.forEach(function(childSnapshot) {
-			  
+
 			console.log('populatePlayers forEach');
-			
-			  var playerHash = 	childSnapshot.name();
-			  var playerData = 	childSnapshot.val();
-			  var id = 			playerData.id;
-			  var name = 		playerData.name;
-			  var latitude = 	playerData.latitude;
-			  var longitude = 	playerData.longitude;
-			  var speed = 		playerData.speedHeight;
-			  
-			  var pos = new google.maps.LatLng(latitude, longitude);
-			  
-			  var marker = new google.maps.Marker({
-				  position: pos,
-				  clickable: true,
-				  zIndex: 2,
-				  title: name + " speed=" + speed,
-				  map: map,
-				  icon: "img/bats.png"
-			  });
-			  
-			  addMarkerPopups(marker);
-			  			  
-			  console.log('Player Name=' + name + " Id=" + id + " Latitude=" + latitude + " Longitude=" + longitude + " speed=" + speed);
+			var playerHash = 	childSnapshot.name();
+			var playerData = 	childSnapshot.val();
+			var id = 			playerData.id;
+			var name = 			playerData.name;
+			var latitude = 		playerData.latitude;
+			var longitude = 	playerData.longitude;
+			var speed = 		playerData.speedHeight;
+
+			var marker = new google.maps.Marker({
+				position: new google.maps.LatLng(latitude, longitude),
+				clickable: true,
+				zIndex: 2,
+				title: name + " speed=" + speed,
+				map: map,
+				icon: "img/bats.png"
+			});
+
+			addMarkerPopups(marker);
+
+			console.log('Player Name=' + name + " Id=" + id + " Latitude=" + latitude + " Longitude=" + longitude + " speed=" + speed);
+		});		
+	});	
+}
+
+function populateTargets(targetRef)	{
+
+	console.log('populateTargets');
+	firebaseRefList.push(targetRef);
+	targetRef.on('value', function(snapshot) {
+
+		console.log('populateTargets value');
+		snapshot.forEach(function(childSnapshot) {
+
+			console.log('populateTargets forEach');
+			var targetData = 	childSnapshot.val();
+			var id = 			targetData.id;
+			var name = 			targetData.name;
+			var latitude = 		targetData.latitude;
+			var longitude = 	targetData.longitude;
+			var speed = 		targetData.speedHeight;
+
+			var marker = new google.maps.Marker({
+				position: new google.maps.LatLng(latitude, longitude),
+				clickable: true,
+				zIndex: 2,
+				title: name,
+				map: map,
+				icon: "img/shootingrange.png"
+			});
+
+			addMarkerPopups(marker);
+
+			if (firstDraw) {
+				// refocus the map
+				map.setCenter(marker.getPosition());
+				map.setZoom(13);
+				firstDraw = false;
+			}
+			console.log('Target Name=' + name + " Id=" + id + " Latitude=" + latitude + " Longitude=" + longitude + " speed=" + speed);
 		});		
 	});	
 }
@@ -226,11 +230,9 @@ function populatePlayers(playerRef)	{
 // Parse a game snapshot and return a BasicGame object
 function parseGameSnapshot(snapshot) {
 	
-	var id = 				snapshot.name();
-	var aGame = 			snapshot.val();
-//	var playersSnapshot = 	snapshot.child("game_players");
-//	var targetsSnapshot = 	snapshot.child("game_targets");
-	
+	var id = 			snapshot.name();
+	var aGame = 		snapshot.val();
+
 	var name = 			aGame.game_name;
 	var location = 		aGame.game_location;
 	var numPlayers = 	aGame.game_number_of_players;
@@ -243,47 +245,9 @@ function parseGameSnapshot(snapshot) {
 		location: location,
 		numPlayers: numPlayers
 	}
-/*	
-	gamesIds += id;
-	console.log('Game Name=' + name + " Location=" + location + " #Players=" + numPlayers);
-	
-	parsePlayers(playersSnapshot);
-	parseTargets(targetsSnapshot);
-*/	
 	return aGame;
 }
-/*
-function parsePlayers(playersSnapshot) {
-	// Loop through all the Players
-	playersSnapshot.forEach(function(childSnapshot) {
-		  
-		  var playerHash = 	childSnapshot.name();
-		  var playerData = 	childSnapshot.val();
-		  var id = 			playerData.id;
-		  var name = 		playerData.name;
-		  var latitude = 	playerData.latitude;
-		  var longitude = 	playerData.longitude;
-		  var speed = 		playerData.speedHeight;
-		  
-		  console.log('Player Name=' + name + " Id=" + id + " Latitude=" + latitude + " Longitude=" + longitude + " speed=" + speed);
-	});	
-}
 
-function parseTargets(targetsSnapshot) {
-	// Loop through all the Targets
-	targetsSnapshot.forEach(function(childSnapshot) {
-		  
-		  var playerData = 	childSnapshot.val();
-		  var id = 			playerData.id;
-		  var name = 		playerData.name;
-		  var latitude = 	playerData.latitude;
-		  var longitude = 	playerData.longitude;
-		  var speed = 		playerData.speedHeight;
-		  
-		  console.log('Target Name=' + name + " Id=" + id + " Latitude=" + latitude + " Longitude=" + longitude + " speed=" + speed);
-	});
-}
-*/
 
 
 
