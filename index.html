@@ -21,7 +21,8 @@
 	 -->
 	<script src='js_downloaded/firebase.js'></script>
 	<script src='js_downloaded/firebase-simple-login.js'></script>
-	<script src="js_downloaded/jquery.min.js"></script>
+<!--  	<script src="js_downloaded/jquery.min.js"></script>-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 	
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 	<script src="js_downloaded/infobox.js"></script>	 
@@ -48,9 +49,9 @@
 
 	<header class="mainheader">
 		<nav><ul>
-			<li class="active"><a href="#">Home</a></li>
-			<li><a href="game.html">Current Games</a></li>
-			<li><a href="#">New Game</a></li>
+			<li id=navHome><a href="#">Home</a></li>
+			<li id=navCurrentGame><a href="#">Current Games</a></li>
+			<li id=navNewGame><a href="#">New Game</a></li>
 		</ul></nav>
 	</header>
 		
@@ -93,7 +94,18 @@
 	<!-- 		<button id="showTargets">Show Targets</button>
 				<button id="hideTargets">Remove Targets</button> -->
 			</div>
-			
+
+			<div class=gameslistcontent>
+				<header>
+					<h2>Select a Game</h2>
+				</header>
+
+				<div id="maingamelist">
+				<ul>
+				</ul>	
+				</div>
+			</div>
+						
 		</div>
 	</div>
 
@@ -103,19 +115,18 @@
 			<option value="" disabled selected data-text="Games">Select your Game</option>
 		</select>
 	</aside>
-
+<!-- 
 	<aside class="middle-sidebar">
 		<h3>Select a Game to join</h3>
 		<ul>
 		</ul>
 	</aside>
-	
+-->
 	<aside class="bottom-sidebar">
 		<img class="big-rabbit-img" src="img/rabbit.png">
 		<article>
 			<h2>Bottom Sidebar</h2>
-			<p>We're crating a new Java Enterprise application, replacing an legacy JSP 
-			solution. Due to many many changes, the UI<p>
+			<p>This is a picture of a rabbit<p>
 		</article>
 	</aside>
 	

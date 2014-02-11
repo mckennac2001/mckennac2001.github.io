@@ -98,6 +98,7 @@ a:hover, a:active {
 }
 
 .topcontent {
+	display: block;
 	background-color: #FFF;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -107,6 +108,7 @@ a:hover, a:active {
 }	
 	
 .bottomcontent {
+	display: block;
 	background-color: #FFF;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -115,6 +117,16 @@ a:hover, a:active {
 	margin-top: 2%;
 }
 
+.gameslistcontent {
+	display: none;
+	background-color: #FFF;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	padding: 3% 5%;
+	margin-top: 2%;
+}	
+	
 .top-sidebar {
 	width: 21%;
 	float: left;

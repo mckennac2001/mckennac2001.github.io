@@ -9,9 +9,36 @@ auth.login('password', {
 
 $(document).ready(function() {
 	
-	$("#printGameData").click(function () {
+/*	$("#printGameData").click(function () {
 		console.log('printGameData');
 		parseGameSnapshot(gameSnapshots[0]);
+	});*/
+	
+	// Start off with the Home button active
+	$('#navHome').attr("class","active");
+
+	// Home button
+	$('#navHome').click(function() {
+	    $('.topcontent').css("display", "block");
+	    $('.bottomcontent').css("display", "block");
+	    $('.mapcontent').css("display", "none");	
+	    $('.gameslistcontent').css("display", "none");	
+	    
+	    $('#navHome').attr("class","active");
+	    $('#navCurrentGame').attr("class","notActive");
+	    $('#navNewGame').attr("class","notActive");
+	});
+	
+	// CurrentGame button
+	$('#navCurrentGame').click(function() {
+	    $('.topcontent').css("display", "none");
+	    $('.bottomcontent').css("display", "none");
+	    $('.mapcontent').css("display", "none");	
+	    $('.gameslistcontent').css("display", "block");	
+	    
+	    $('#navHome').attr("class","notActive");
+	    $('#navCurrentGame').attr("class","active");
+	    $('#navNewGame').attr("class","notActive");
 	});
 	
 	// A Game was selected. Now we should fetch the game data and populate the map
@@ -25,16 +52,23 @@ $(document).ready(function() {
 		//location = "game.html";
 	    $('.topcontent').css("display", "none");
 	    $('.bottomcontent').css("display", "none");
-	    $('.mapcontent').css("display", "inline");
+	    $('.mapcontent').css("display", "block");
+	    $('.gameslistcontent').css("display", "none");	
+	    
+	    $('#navHome').attr("class","notActive");
+	    $('#navCurrentGame').attr("class","active");
+	    $('#navNewGame').attr("class","notActive");
+		
 	    initialize();
 	});
 });
 
 function updateSelectList(aGame) {
 	
-	// Add the game id to the select list in index.html
+	// Add the game id to the selects list in index.html
 	$("#gameSelect").append('<option value=' + aGame.id + '>' + aGame.name + '</option>');
-	$(".middle-sidebar ul").append('<li>' + aGame.name + '</li>');
+	
+	$("#maingamelist ul").append('<li>' + aGame.name + '</li>');
 	
 	// Select list eye candy
 	$(".middle-sidebar li").mouseenter(function() {
