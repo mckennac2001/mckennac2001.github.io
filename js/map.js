@@ -86,8 +86,8 @@ function panToMyLocation() {
 	if (myLocation != null) {
 		var latlng = new google.maps.LatLng(myLocation.coords.latitude, myLocation.coords.longitude);
 		console.log(latlng);
-		//map.panTo(latlng);
-		map.setCenter(latlng);
+		map.panTo(latlng);
+		//map.setCenter(latlng);
 	} else {
 		console.log("myLocation was null");
 	}
