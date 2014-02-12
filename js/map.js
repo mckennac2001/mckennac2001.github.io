@@ -1,8 +1,4 @@
 
-
-
-
-
 /*
 function populateMarkers() {
 
@@ -52,14 +48,33 @@ function deleteMarkers() {
 	markers = [];
 }
 */
-function initialize() {
-	console.log("initialize");
-	
-	// Fetch our location
-	navigator.geolocation.getCurrentPosition(initialiseMyLocation);
-	// Set functionality for myLocation button
-	$('#myLocation').click(panToMyLocation);
 
+// Storage for newGame markers
+
+var targetMarkersToSave = [];
+var targetMarkers = [];
+var playerMarkers = [];
+var infoBoxes = [];
+
+function GameMarker(id, marker) {
+	this.id = id;
+	this.marker = marker;
+}
+
+String.prototype.hashCode = function() {
+	var hash = 0;
+	if (this.length == 0) return hash;
+	for (var i = 0; i < this.length; i++) {
+		car = this.charCodeAt(i);
+		hash = ((hash << 5) - hash) + car;
+		hash = hash & hash; // Convert to 32bit integer
+	}
+	return hash;
+};
+
+function drawGameMap() {
+	console.log("drawGameMap");
+	
 	// Default map focus
 	var mapOptions = {
 			zoom : 12,
@@ -67,11 +82,180 @@ function initialize() {
 	};
 
 	map = new google.maps.Map(document.getElementById('mapcanvas'),	mapOptions);
-
 	
 	firstDraw = true;
+	targetMarkersToSave.length = 0;
+	targetMarkers.length = 0;
+	playerMarkers.length = 0;
+	
 	fetchMapData(gameId);
 }
+
+function drawNewMap() {
+	console.log("drawNewMap");
+	
+	// Default map focus
+	var mapOptions = {
+			zoom : 12,
+			center : new google.maps.LatLng(53.33, -6.2)
+	};
+
+	map = new google.maps.Map(document.getElementById('newmapcanvas'),	mapOptions);
+	
+	targetMarkersToSave.length = 0;
+	targetMarkers.length = 0;
+	playerMarkers.length = 0;
+	
+	// Setup the onClick and drag handlers
+	google.maps.event.addListener(map, 'click', function(event) {
+		addMarker(event.latLng);
+	});
+}
+
+//Add a marker to the map and push to the array.
+function addMarker(location) {
+	console.log("addMarker");
+	var infoBoxVisible = false;
+	var targetName = "";
+	
+	var marker = new google.maps.Marker({
+		position: location,
+		map: map,	
+		draggable: true,
+		title: "a marker",
+		icon: "img/rabbit_icons_sm2.png"
+	});
+	
+	targetMarkersToSave.push(marker);
+	//targetMarkers.push(new GameMarker("", marker));
+	
+	var infobox = new InfoBox({
+		content: "<div id='tabs'>"+
+					"<form id='targetNameForm' onSubmit='captureForm()'>"+
+			        	"<div>"+
+			        		"<input type='text' id='targetNameText' value='" + targetName + "'>"+ 
+			        		//"<script> $('#targetNameText').submit(function(e) { e.preventDefault(); console.log('infoBox submit'); } </script>" +
+			        	"</div>"+
+			        "</form>"+
+			     "</div>",
+		disableAutoPan: false,
+		maxWidth: 160,
+		pixelOffset: new google.maps.Size(-140, 0),
+		zIndex: null,
+		/*boxClass: "infoBox1",*/
+		boxStyle: {
+			background: "img/red.jpg",
+			opacity: .8,
+			width: "160px",
+			"border-style": "groove",
+			"background-color": "#FFF",
+			"border-radius": "8px"
+		},
+		closeBoxURL: "",
+		infoBoxClearance: new google.maps.Size(1, 1)
+	});
+	
+	// Click event for marker
+	google.maps.event.addListener(marker, 'click', function() {
+		if (!infoBoxVisible) {
+			// Close the other possible info box
+			
+			while (infoBoxes.length > 0) {
+				infoBoxes.pop().close();
+			}
+			infobox.open(map, marker);
+			
+			infoBoxes.push(infobox);
+			infoBoxVisible = true;
+		} else {
+			console.log($('#targetNameText').val());
+			infobox.close();
+			infoBoxes.pop();
+			infoBoxVisible = false;
+		}
+	});
+	
+	// Right click event fro marker
+    google.maps.event.addListener(marker, 'rightclick', function(event) {
+		marker.setMap(null);
+		console.log("markers count " + targetMarkersToSave.length);
+		var pos = targetMarkersToSave.indexOf(marker);
+		targetMarkersToSave.splice(pos, 1);
+		console.log("markers count " + targetMarkersToSave.length);
+    });
+}
+
+function captureForm() {
+	console.log("captureForm");
+	return false;
+}
+
+function saveGame() {
+	console.log("saveGame");	
+	// Get game details from the form
+
+	// Get the list of players
+	var players = [];
+	$('.newGamePlayer').each(function(){
+		if ($(this).val() != "") {
+			var aPlayer = new Player($(this).val(), "somename");
+			players.push(aPlayer);
+		}
+	});
+	var game_players = new Players(players);
+	
+	// Turn the list of Target Markers on the map into objects we can store
+	var game_targets = [];
+	for (var i=0; i < targetMarkersToSave.length; i++) {
+		
+		var aTarget = {
+			id: generateUUID(),
+			name: targetMarkersToSave[i].getTitle(),
+			latitude: targetMarkersToSave[i].getPosition().lat(),
+			longitude: targetMarkersToSave[i].getPosition().lng(),
+			speedHeight: 0
+		};
+		game_targets.push(aTarget);
+	}
+	
+	// Create the game object to save to firebase
+	var aGame = {
+		game_name: $('.newGameName').val(),
+		game_location: $('.newGameLocation').val(),
+		game_targets: game_targets,
+		game_players: game_players
+	};
+
+	console.log(aGame);
+	writeGameData(aGame);
+}
+
+function Player(id, name, latitude, longitude, speedHeight) {
+	this.id = id;
+	this.name = name;
+	this.latitude = typeof latitude !== 'undefined' ? latitude : 0;
+	this.longitude = typeof longitude !== 'undefined' ? longitude : 0;
+	this.speedHeight = typeof speedHeight !== 'undefined' ? speedHeight : 0;
+//	this.hash = hash;
+}
+
+function Players(players) {
+	var len = players.length;
+	for (var i=0; i < len; i++) {
+		var uid = players[i].id.hashCode();
+		console.log("uid=" + uid);
+		this[uid] = players[i];
+	}
+	console.log("Players= " + this);
+}
+
+
+function shortUUID (){
+	return (new Date().getTime() + Math.random());
+}
+
+
+
 
 function initialiseMyLocation(location) {
 	console.log("initialiseMyLocation: " + location);
@@ -93,35 +277,73 @@ function panToMyLocation() {
 	}
 }
 
-// Called when a player needs to be drawn to the map
+// Called when a player needs to be [re]drawn to the map
 function drawPlayer(aPlayer) {
 	
 	console.log('drawPlayer');
+	// If there is an old marker for this player, we just move it
+	for (var i = 0; i < playerMarkers.length; i++) {
+		if (playerMarkers[i].id == aPlayer.id) {
+			playerMarkers[i].marker.setPosition(new google.maps.LatLng(aPlayer.latitude, aPlayer.longitude));
+			//playerMarkers[i].marker.setAnimation(google.maps.Animation.BOUNCE);
+			return;
+			//playerMarkers[i].marker.setMap(null);
+			//playerMarkers.splice(i, 1);
+			//break;
+		}
+	}
+	// If we are here, this is the first time we have seen this player
 	var marker = new google.maps.Marker({
 		position: new google.maps.LatLng(aPlayer.latitude, aPlayer.longitude),
 		clickable: true,
 		zIndex: null,
-		title: aPlayer.name + " speed=" + aPlayer.speed,
+		title: aPlayer.name + ", speed=" + aPlayer.speed,
 		map: map,
 		icon: "img/bats.png"
 	});
 	
+	// Add some popup functionality
 	addMarkerPopups(marker);
+	
+	// Store this new marker so we can delete it if the player moves
+	playerMarkers.push(new GameMarker(aPlayer.id, marker));
 }
 
-//Called when a target needs to be drawn to the map
+// Called when a target needs to be [re]drawn to the map
 function drawTarget(aTarget) {
 	
 	console.log('drawTarget');
+	// If there is an old marker for this target, we update it
+	for (var i = 0; i < targetMarkers.length; i++) {
+		if ((targetMarkers[i].getPosition().lat() == aTarget.latitude) && 
+			(targetMarkers[i].getPosition().lng() == aTarget.longitude) && 
+			(aTarget.hitters != undefined)) {
+			// Someone has hit this marker
+			//targetMarkers[i].setAnimation(google.maps.Animation.BOUNCE);
+			targetMarkers[i].setIcon("img/cup.png");
+			return;
+		}
+	}
+	
+	var iconPath;
+	if (aTarget.hitters != undefined) {
+		iconPath = "img/cup.png";
+	} else {
+		iconPath = "img/shootingrange.png";
+	}
+	
+	// If we are here, this is a new marker
 	var marker = new google.maps.Marker({
 		position: new google.maps.LatLng(aTarget.latitude, aTarget.longitude),
 		clickable: true,
 		zIndex: null,
 		title: aTarget.name,
 		map: map,
-		icon: "img/shootingrange.png"
+		icon: iconPath
 	});
 
+	// Store this marker so we can change it later when it gets hit
+	targetMarkers.push(marker);
 	addMarkerPopups(marker);
 
 	if (firstDraw) {
@@ -173,14 +395,20 @@ function addMarkerPopups(marker) {
 }
 
 
-/*
+
 // On startup
 $(document).ready(function() {
-	if ( sessionStorage.getItem("gameid")) {
+	
+	// Fetch our location
+	navigator.geolocation.getCurrentPosition(initialiseMyLocation);
+	// Set functionality for myLocation button
+	$('#myLocation').click(panToMyLocation);
+	
+/*	if ( sessionStorage.getItem("gameid")) {
 		// Restore the contents of the text field
 		gameId = sessionStorage.getItem("gameid");
 		console.log('gameid=' + gameId);
-	}
+	}*/
 });
-*/
+
 

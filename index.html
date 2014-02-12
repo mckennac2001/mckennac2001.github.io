@@ -29,12 +29,12 @@
 
 	<script>
 		var map;
-		var markers = [];
+<!--		var markers = []; -->
 		var myLocation = null;
 		var gameId;
 	</script>
 	
-	<script src='js/firebase.js'></script>
+	<script src='js/database.js'></script>
 	<script src="js/map.js"></script>
 	<script src='js/index.js'></script>
 
@@ -82,12 +82,11 @@
 				
 				<content>
 					<p>First of all, it creates the worst, most cluttered invalid pseudo-HTML/CSS/JS mix I've ever seen. It violates every single rule I learned in web-development. Furthermore it throws together, what never should be so tightly coupled: Layout, Design, Logic and Communication </p>
-					<p>Secondly, it is way too complicated. Its complexity is outstanding. If you ask me, it's a poor abstraction of basic web technologies, crippled and useless in the end. What benefits do I have? None, if you think about. Hundreds of components? I see ten-thousands</p>
+					<p>hi</p>
 				</content>
 			</article>
 			
 			<div class="mapcontent">
-				<h3 id="gametitle"></h3>
 				<div id="mapcanvas"></div>
 				<button id="reset">Reset</button>
 				<button id="myLocation">My Location</button>
@@ -95,6 +94,11 @@
 				<button id="hideTargets">Remove Targets</button> -->
 			</div>
 
+			<div class="newmapcontent">
+				<h3 id="gametitle"></h3>
+				<div id="newmapcanvas"></div>
+			</div>
+			
 			<div class=gameslistcontent>
 				<header>
 					<h2>Select a Game</h2>
@@ -108,28 +112,39 @@
 						
 		</div>
 	</div>
-
-	<aside class="top-sidebar">
+	
+	<aside class="game-select-sidebar">
 		<h2 id="SelectTitle">Select a Game</h2>
 		<select id="gameSelect">
 			<option value="" disabled selected data-text="Games">Select your Game</option>
 		</select>
 	</aside>
-<!-- 
-	<aside class="middle-sidebar">
-		<h3>Select a Game to join</h3>
-		<ul>
+
+	<aside class="new-game-sidebar">
+		<h3>Game details</h3>
+		<ul id="gameform">
+			<li>Name of Game<input class="newGameName" type="text" name="newGameName"/></li>
+			<li>Location<input class="newGameLocation" type="text" name="newGameLocation"/></li>
+			<li>A player<input class="newGamePlayer" type="text" name="newGamePlayer"/></li>
+			<li>Another player<input class="newGamePlayer" type="text" name="newGamePlayer"/></li>
+		</ul>
+		<button id="cancel">Cancel</button>
+		<button id="saveGame" onclick="saveGame()">Save Game</button>
+	</aside>
+
+	<aside class="game-details-sidebar">
+		<h3>Game details</h3>
+		<ul id="gameDetails">
+			<li id="gameDetailsName"></li>
+			<li id="gameDetailsLocation"></li>
+			<li>Players:</li>
 		</ul>
 	</aside>
--->
+	
 	<aside class="bottom-sidebar">
 		<img class="big-rabbit-img" src="img/rabbit.png">
-		<article>
-			<h2>Bottom Sidebar</h2>
-			<p>This is a picture of a rabbit<p>
-		</article>
 	</aside>
-	
+
 	<footer class="mainfooter">
 		<p>Copyright &copy; 2014 <a href="#" title="Charles Mc Kenna">Charles Mc Kenna</a></p>
 	</footer>

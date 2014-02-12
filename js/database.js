@@ -101,7 +101,7 @@ function fetchPlayers(playerRef)	{
 	firebaseRefList.push(playerRef);
 	playerRef.on('value', function(snapshot) {
 
-		console.log('fetchPlayers value');
+		console.log('fetchPlayers new data');
 		snapshot.forEach(function(childSnapshot) {
 
 			console.log('fetchPlayers forEach');
@@ -109,17 +109,16 @@ function fetchPlayers(playerRef)	{
 			var playerData = 	childSnapshot.val();
 			
 			// Create a player object to pass to map drawing functions
-			var aPlayer = { 
-				id: 			playerData.id,
-				name: 			playerData.name,
-				hash:			childSnapshot.name(),
-				latitude: 		playerData.latitude,
-				longitude:	 	playerData.longitude,
-				speed:	 		playerData.speedHeight
-			};
+			var aPlayer = new Player(playerData.id,
+									 playerData.name,
+									 playerData.latitude,
+									 playerData.longitude,
+									 playerData.speedHeight);
+//									 childSnapshot.name());
 			drawPlayer(aPlayer);
-
+			
 			console.log('Player Name=' + aPlayer.name + " Id=" + aPlayer.id + " Latitude=" + aPlayer.latitude + " Longitude=" + aPlayer.longitude + " speed=" + aPlayer.speed);
+			console.log('fetchPlayers end');
 		});		
 	});	
 }
@@ -130,7 +129,7 @@ function fetchTargets(targetRef)	{
 	firebaseRefList.push(targetRef);
 	targetRef.on('value', function(snapshot) {
 
-		console.log('fetchTargets value');
+		console.log('fetchTargets new data');
 		snapshot.forEach(function(childSnapshot) {
 
 			console.log('fetchTargets forEach');
@@ -142,18 +141,36 @@ function fetchTargets(targetRef)	{
 				name: 			targetData.name,
 				latitude: 		targetData.latitude,
 				longitude:	 	targetData.longitude,
-				speed:	 		targetData.speedHeight
+				speed:	 		targetData.speedHeight,
+				hitters:		targetData.hitters
 			};
 			drawTarget(aTarget);
 			
 			console.log('Target Name=' + aTarget.name + " Id=" + aTarget.id + " Latitude=" + aTarget.latitude + " Longitude=" + aTarget.longitude + " speed=" + aTarget.speed);
+			console.log('fetchTargets end');
 		});		
 	});	
 }
 
+function writeGameData(aGame) {
+	console.log('writeGameData');
 
+	var id = generateUUID();
+	// Change reference to the game we just created
+	var ref = baseRef.child("/dynamic/games/" + id);
+	// Write the game data
+	ref.set(aGame);
+}
 
-
+function generateUUID(){
+    var d = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (d + Math.random()*16)%16 | 0;
+        d = Math.floor(d/16);
+        return (c=='x' ? r : (r&0x7|0x8)).toString(16);
+    });
+    return uuid;
+};
 
 
 
