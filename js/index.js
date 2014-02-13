@@ -1,6 +1,6 @@
 
 // Animation speed
-var speed = 1500;
+var speed = 0;
 
 // Setup all the actions
 $(document).ready(function() {
@@ -13,6 +13,28 @@ $(document).ready(function() {
 	// Start off with the Home button active
 	$('#navHome').attr("class","active");
 
+	// Save has been selected
+	$('#saveGame').click(function() {
+		saveGame();
+		$('#navHome').trigger('click');
+	});
+		
+	// Delete has been selected
+	$('#maingamelist').on('click', 'button.delete', function() {
+		console.log('delete this = ' + $(this).parent().parent().attr('value') );
+		deleteGame($(this).parent().parent().attr('value'));
+	});
+
+	// Edit has been selected
+	$('#maingamelist').on('click', 'button.edit', function() {
+		console.log('edit this = ' + $(this).parent().parent().attr('value') );
+		editGame($(this).parent().parent().attr('value'));
+	});
+	
+	//$("#maingamelist ul").append('<li value=' + aGame.id + '><p>' 
+	//		+ aGame.name + ' <button class="edit">Edit</button>  <button class="delete">Delete</button></p></li>');
+	
+	
 	// Home button
 	$('#navHome').click(function() {
 /*	    $('.topcontent').css("display", "block");
@@ -28,7 +50,7 @@ $(document).ready(function() {
 	    // Sidebars
 	    $('.new-game-sidebar').hide(speed);
 	    $('.game-select-sidebar').slideDown(speed);
-	    $('.game-details-sidebar').slideDown(hide);
+	    $('.game-details-sidebar').hide(speed);
 	    
 	    
 	    $('#navHome').attr("class","active");
@@ -115,6 +137,8 @@ $(document).ready(function() {
 		
 	    drawGameMap();
 	});
+	
+	detectBrowser();
 });
 
 function updateSelectList(aGame) {
@@ -122,7 +146,8 @@ function updateSelectList(aGame) {
 	// Add the game id to the selects list in index.html
 	$("#gameSelect").append('<option value=' + aGame.id + '>' + aGame.name + '</option>');
 	
-	$("#maingamelist ul").append('<li>' + aGame.name + '</li>');
+	$("#maingamelist ul").append('<li value=' + aGame.id + '><p>' 
+			+ aGame.name + ' <button class="edit">Edit</button>  <button class="delete">Delete</button></p></li>');
 	
 	// Select list eye candy
 	$(".new-game-sidebar li").mouseenter(function() {
@@ -131,6 +156,14 @@ function updateSelectList(aGame) {
 	$(".new-game-sidebar li").mouseleave(function() {
 		$(this).css("color", "black");
 	});	
+}
+
+function deleteFromSelectList(gameId) {
+	
+	// Remove this entry from all the UI lists
+	$("#gameSelect").find('option[value=' + gameId + ']').remove();
+	
+	$("#maingamelist ul").find('li[value=' + gameId + ']').remove();
 }
 
 // Update UI to show the details of the current game
@@ -142,14 +175,15 @@ function updateUiWithCurrentGame(aGame) {
 function detectBrowser() {
 	console.log("detectBrowser");
 	var useragent = navigator.userAgent;
-	var mapdiv = document.getElementById("mapcanvas");
+	//var mapdiv = document.getElementById("mapcanvas");
 
 	if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
-		mapdiv.style.width = '100%';
-		mapdiv.style.height = '100%';
+		alert("its a phone=" + useragent);
+		//mapdiv.style.width = '100%';
+		//mapdiv.style.height = '100%';
 	} else {
-		mapdiv.style.width = '600px';
-		mapdiv.style.height = '800px';
+		//mapdiv.style.width = '600px';
+		//mapdiv.style.height = '800px';
 	}
 }
 

@@ -230,6 +230,20 @@ function saveGame() {
 	writeGameData(aGame);
 }
 
+function deleteGame(gameId) {
+	console.log("deleteGame");	
+	
+	var choice = confirm("Are you sure?");
+	
+	if(choice == true) { 
+		deleteGameData(gameId);
+	}
+}
+
+function editGame(gameId) {
+	console.log("editGame");	
+}
+
 function Player(id, name, latitude, longitude, speedHeight) {
 	this.id = id;
 	this.name = name;

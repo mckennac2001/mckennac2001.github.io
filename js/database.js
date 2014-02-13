@@ -29,6 +29,10 @@ auth.login('password', {
 	rememberMe: true
 });
 
+function refreshGameIdList() {
+	
+}
+
 // Retrieve all the games data and add it to the select list
 function populateGameIdList() {
 	
@@ -38,10 +42,18 @@ function populateGameIdList() {
 	childRef.on('child_added', function(snapshot) {
 		// This is called for each Game in the DB
 		
-		console.log('populateGameIdList callback');
+		console.log('populateGameIdList child_added');
 		var aGame = parseGameSnapshot(snapshot);
 		
 		updateSelectList(aGame);
+	});
+	
+	childRef.on('child_removed', function(snapshot) {
+		
+		console.log('populateGameIdList child_removed');
+		var aGame = parseGameSnapshot(snapshot);
+		
+		deleteFromSelectList(aGame.id);
 	});
 }
 
@@ -160,6 +172,13 @@ function writeGameData(aGame) {
 	var ref = baseRef.child("/dynamic/games/" + id);
 	// Write the game data
 	ref.set(aGame);
+}
+
+function deleteGameData(gameId) {
+	console.log('deleteGameData');
+	
+	var childRef = baseRef.child(gamesPath + gameId);
+	childRef.remove();
 }
 
 function generateUUID(){
