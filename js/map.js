@@ -178,6 +178,9 @@ function addMarker(location) {
 	// Right click event on marker
     google.maps.event.addListener(marker, 'rightclick', function(event) {
 		marker.setMap(null);
+		if (infoBoxVisible) {
+			infobox.close();
+		}
 		console.log("markers count " + targetMarkersToSave.length);
 		var pos = targetMarkersToSave.indexOf(marker);
 		targetMarkersToSave.splice(pos, 1);
@@ -434,20 +437,6 @@ function LongPress(map, length) {
 		me.onMapDrag_(e);
 	});
 };
-LongPress.prototype.onMouseUp_ = function(e) {
-	clearTimeout(this.timeoutId_);
-};
-LongPress.prototype.onMouseDown_ = function(e) {
-	clearTimeout(this.timeoutId_);
-	var map = this.map_;
-	var event = e;
-	this.timeoutId_ = setTimeout(function() {
-		google.maps.event.trigger(map, 'longpress', event);
-	}, this.length_);
-};
-LongPress.prototype.onMapDrag_ = function(e) {
-	clearTimeout(this.timeoutId_);
-};
 
 
 // On startup
@@ -457,6 +446,23 @@ $(document).ready(function() {
 	navigator.geolocation.getCurrentPosition(initialiseMyLocation);
 	// Set functionality for myLocation button
 	$('#myLocation').click(panToMyLocation);
+	
+	
+	LongPress.prototype.onMouseUp_ = function(e) {
+		clearTimeout(this.timeoutId_);
+	};
+	LongPress.prototype.onMouseDown_ = function(e) {
+		clearTimeout(this.timeoutId_);
+		var map = this.map_;
+		var event = e;
+		this.timeoutId_ = setTimeout(function() {
+			google.maps.event.trigger(map, 'longpress', event);
+		}, this.length_);
+	};
+	LongPress.prototype.onMapDrag_ = function(e) {
+		clearTimeout(this.timeoutId_);
+	};
+
 	
 /*	if ( sessionStorage.getItem("gameid")) {
 		// Restore the contents of the text field
