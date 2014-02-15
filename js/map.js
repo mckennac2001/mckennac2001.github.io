@@ -168,7 +168,7 @@ function addMarker(location) {
 		content: "<div id='tabs'>"+
 					"<form id='targetNameForm' onSubmit='captureForm()'>"+
 			        	"<div>"+
-			        		"<input type='text' id='targetNameText' value='" + targetName + "'>"+ 
+			        		"<input type='text' width='100%' id='targetNameText' value='" + targetName + "'>"+ 
 			        		//"<script> $('#targetNameText').submit(function(e) { e.preventDefault(); console.log('infoBox submit'); } </script>" +
 			        	"</div>"+
 			        "</form>"+
