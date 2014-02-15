@@ -3,20 +3,36 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<script src="downloaded_js/jquery.cycle2.js"></script>
-<link rel=stylesheet href="../demo/demo-slideshow.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript" src="js_downloaded/jquery.cycle2.min.js"></script> 
+<script type="text/javascript" src="js_downloaded/jquery.cycle2.carousel.min.js"></script> 
+<script type="text/javascript" src="js_downloaded/jquery.cycle2.flip.min.js"></script> 
+<link rel=stylesheet href="css/demo-slideshow.css">
 </head>
 <body>
 
 <div class="cycle-slideshow"
-    data-cycle-fx="scrollHorz"
     data-cycle-pause-on-hover="true"
+    data-cycle-auto-height="4:3"
     data-cycle-speed="200"
+    data-cycle-fx=flipVert
+    data-cycle-timeout=2000
     >
     <img src="http://malsup.github.io/images/p1.jpg">
     <img src="http://malsup.github.io/images/p2.jpg">
     <img src="http://malsup.github.io/images/p3.jpg">
     <img src="http://malsup.github.io/images/p4.jpg">
+</div>
+
+<div class="cycle-slideshow" 
+    data-cycle-fx='scrollHorz' 
+    data-cycle-auto-height="4:3"
+    data-cycle-delay="-500"
+    >
+    <img src="http://malsup.github.io/images/p2.jpg" class=first>
+    <img src="http://malsup.github.io/images/p3.jpg">
+    <img src="http://malsup.github.io/images/p4.jpg">
+    <img src="http://malsup.github.io/images/p1.jpg">
 </div>
 
 </body>

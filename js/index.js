@@ -151,7 +151,7 @@ function updateSelectList(aGame) {
 	
 	// Select list eye candy
 	$(".new-game-sidebar li").mouseenter(function() {
-		$(this).css("color", "red");
+		$(this).css("color", "#ffacd5");
 	});
 	$(".new-game-sidebar li").mouseleave(function() {
 		$(this).css("color", "black");
@@ -179,6 +179,9 @@ function detectBrowser() {
 
 	if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
 		alert("its a phone=" + useragent);
+		
+		// Dynamically chage the body size to 100%
+		$('body').css('width', '100%')
 		//mapdiv.style.width = '100%';
 		//mapdiv.style.height = '100%';
 	} else {

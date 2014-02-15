@@ -1,0 +1,20 @@
+@CHARSET "ISO-8859-1";
+
+#carousel {
+  margin: 0 auto;
+  width: 600px;
+  height: 150px;
+  background: #efefef;
+  overflow: hidden;
+}
+#carousel .carousel_box {
+  float: left;
+  border: solid #fff 5px;
+  width: 140px;
+  height: 140px;
+  color: #fff;
+  background: #252525;
+  line-height: 140px;
+  text-align: center;
+  font-size: 123%;
+}

@@ -178,7 +178,7 @@ function deleteGameData(gameId) {
 	console.log('deleteGameData');
 	
 	var childRef = baseRef.child(gamesPath + gameId);
-	childRef.remove();
+	//childRef.remove();
 }
 
 function generateUUID(){

@@ -14,17 +14,63 @@ a {
 }
 
 a:link, a:visited {
-	color: #CF5C3F;
+	color: #308d54;
 }
 
-a:hover, a:active {
-	background-color: #CF5C3F;
+a:active {
+	background-color: #308d54;
 	color: #FFF;
+}
+
+a:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #308d54), color-stop(1, #77d42a) );
+	background:-moz-linear-gradient( center top, #308d54 5%, #77d42a 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#308d54', endColorstr='#77d42a');
+}
+
+h2 {
+	color: #308d54;
+}
+	
+button {
+	-moz-box-shadow:inset 0px 0px 0px -50px #308d54;
+	-webkit-box-shadow:inset 0px 0px 0px -50px #308d54;
+	box-shadow:inset 0px 0px 0px -50px #308d54;
+/*	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #77d42a), color-stop(1, #308d54) );
+	background:-moz-linear-gradient( center top, #77d42a 5%, #308d54 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#77d42a', endColorstr='#308d54');*/
+	background-color:#308d54;
+	-webkit-border-top-left-radius:5px;
+	-moz-border-radius-topleft:5px;
+	border-top-left-radius:5px;
+	-webkit-border-top-right-radius:5px;
+	-moz-border-radius-topright:5px;
+	border-top-right-radius:5px;
+	-webkit-border-bottom-right-radius:5px;
+	-moz-border-radius-bottomright:5px;
+	border-bottom-right-radius:5px;
+	-webkit-border-bottom-left-radius:5px;
+	-moz-border-radius-bottomleft:5px;
+	border-bottom-left-radius:5px;
+	text-indent:0px;
+	display:inline-block;
+	color:#FFF;
+	text-decoration:none;
+	text-align:center;
+}
+button:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #308d54), color-stop(1, #77d42a) );
+	background:-moz-linear-gradient( center top, #308d54 5%, #77d42a 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#308d54', endColorstr='#77d42a');
+	background-color:#5cb811;
+}button:active {
+	position:relative;
+	top:1px;
 }
 
 .body {
 	margin: 0 auto;
-	width: 70%;
+	width: 90%;
 	clear: both;
 }
 
@@ -35,7 +81,7 @@ a:hover, a:active {
 }
 
 .mainheader nav {
-	background-color: #666;
+	background-color: #e1d1a4;
 	height: 40px;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -61,7 +107,7 @@ a:hover, a:active {
 
 .mainheader nav a:hover, .mainheader nav a:active,
 .mainheader nav .active a:link,	.mainheader nav .active a:visited {
-	background-color: #CF5C3F;
+	background-color: #308d54;
 	text-shadow: none;
 }
 
@@ -96,7 +142,7 @@ a:hover, a:active {
 }
 
 .content {
-	width: 70%;
+	width: 80%;
 	float: left;
 }
 
@@ -139,33 +185,45 @@ a:hover, a:active {
 	margin-top: 15px;
 }	
 	
+.slideshows {
+	width: 100%;
+}
+
+.aslide {
+	width: 100%;
+}
+	
 .game-select-sidebar {
 	display: block;
-	width: 21%;
+	width: 14%;
 	float: left;
 	background-color: #FFF;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-	margin: 15px 0 15px 3%;
-	padding: 2% 3%;
+	margin: 15px 0 15px 2%;
+	padding: 2% 2%;
+}
+
+.game-select-sidebar select {
+	margin: none;
+	width: 100%;
 }
 
 .game-details-sidebar {
 	display: none;
-	width: 21%;
+	width: 14%;
 	float: left;
 	background-color: #FFF;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-	margin: 15px 0 15px 3%;
-	padding: 2% 3%;
+	margin: 15px 0 15px 2%;
+	padding: 2% 2%;
 }
 
 .game-details-sidebar ul {
 	list-style: none;
-	margin: 0 auto;
 }
 
 .post-info {
@@ -176,36 +234,43 @@ a:hover, a:active {
 
 .new-game-sidebar {
 	display: none;
-	width: 21%;
+	width: 14%;
 	float: left;
 	background-color: #FFF;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-	margin: 15px 0 15px 3%;
-	padding: 2% 3%;
+	margin: 15px 0 15px 2%;
+	padding: 2% 2%;
+	/*min-width:160px; */
 }
 
 .new-game-sidebar li {
 	margin: none;
-	visibility: visible;
 	list-style: none;
+	padding: 0% 0%;
 }
-
+/*
 .new-game-sidebar li div {
 	overflow: hidden;
     white-space: nowrap;
 }
+*/
+
+.new-game-sidebar input {
+	margin: none;
+	width: 100%;
+}
 
 .bottom-sidebar {
-	width: 21%;
+	width: 14%;
 	float: left;
 	background-color: #FFF;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-	margin: 0 0 15px 3%;
-	padding: 2% 3%;
+	margin: 0 0 15px 2%;
+	padding: 2% 2%;
 }
 
 .mainfooter {
@@ -215,14 +280,14 @@ a:hover, a:active {
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-	background: #666;
+	background: #e1d1a4;
 	margin 15px 0;
 	margin-top: 2%;
 }
 
 .mainfooter p {
 	width: 92%;
-	margin: 2% auto;
+	margin: 1% auto;
 	color: #FFF;
 }
 	
@@ -247,6 +312,22 @@ a:hover, a:active {
     box-shadow: 0 0 8px #000;
 }
 
+/* set border-box so that percents can be used for width, padding, etc (personal preference) */
+.cycle-slideshow, .cycle-slideshow * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+cycle-slideshow { width: 45%; min-width: 200px; max-width: 500px; margin: 10px auto; padding: 0; position: relative;
+    background: url(http://malsup.github.com/images/spinner.gif) 50% 50% no-repeat;
+ }
+ 
+/* slideshow images (for most of the demos, these are the actual "slides") */
+.cycle-slideshow img { 
+    /* 
+    some of these styles will be set by the plugin (by default) but setting them here
+    helps avoid flash-of-unstyled-content
+    */
+    position: absolute; top: 0; left: 0;
+    width: 100%; padding: 0; display: block;
+}
 
 @media only screen and (min-width: 150px) and (max-width: 800px) {
 

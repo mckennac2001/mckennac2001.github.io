@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+	
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -11,6 +12,7 @@
 	<!--   <link rel='stylesheet' type="test/css" media='screen and (min-width: 601px)' href='css/gameStyle.css'/>
 	<link rel='stylesheet' type="test/css" media='screen and (min-width: 150px) and (max-width: 600px)' href='css/gameStyle-thin.css'/> -->
 	<link rel='stylesheet' type="test/css" href='css/gameStyle.css'/>
+
 <!-- 
 	<script src='https://cdn.firebase.com/js/client/1.0.3/firebase.js'></script>
 	<script src='https://cdn.firebase.com/js/simple-login/1.2.5/firebase-simple-login.js'></script>
@@ -25,7 +27,11 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 	
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-	<script src="js_downloaded/infobox.js"></script>	 
+	<script src="js_downloaded/infobox.js"></script>	
+	
+	<script type="text/javascript" src="js_downloaded/jquery.cycle2.min.js"></script> 
+	<script type="text/javascript" src="js_downloaded/jquery.cycle2.carousel.min.js"></script> 
+	<script type="text/javascript" src="js_downloaded/jquery.cycle2.flip.min.js"></script> 
 
 	<script>
 		var map;
@@ -43,6 +49,7 @@
 	</script>	
 
 
+	
 </head>
 
 <body class="body">
@@ -58,31 +65,46 @@
 	<div class="maincontent">
 		<div class="content">
 			<article class="topcontent">
-				<header>
-					<h2><a href="#" title="First Post">First Post</a></h2>
-					<button id="printGameData">Game Data</button>
-				</header>
-				<footer>
-					<p class="post-info">This was written by Charles Mc Kenna</p>
-				</footer>
-				
 				<content>
-					<p>First of all, it creates the worst, most cluttered invalid pseudo-HTML/CSS/JS mix I've ever seen. It violates every single rule I learned in web-development. Furthermore it throws together, what never should be so tightly coupled: Layout, Design, Logic and Communication </p>
-					<p>Secondly, it is way too complicated. Its complexity is outstanding. If you ask me, it's a poor abstraction of basic web technologies, crippled and useless in the end. What benefits do I have? None, if you think about. Hundreds of components? I see ten-thousands</p>
+					<div class="slideshows">
+						<div class="aslide">
+							<div class="cycle-slideshow" 
+							     data-cycle-fx='carousel'
+							     data-cycle-delay="-500"
+							     data-cycle-speed="900"
+							     data-cycle-carousel-visible=4
+    							 data-cycle-carousel-fluid=true>
+								<img src="img/run2.jpg" class=first>
+								<img src="img/bike5.jpg"> 
+								<img src="img/run3.jpg"> 
+								<img src="img/run4.jpg">
+								<img src="img/run5.jpg">
+								<img src="img/run9.jpg">
+								<img src="img/bike1.jpg">
+								<img src="img/bike2.jpg">
+								<img src="img/bike3.jpg">
+								<img src="img/bike4.jpg">
+									
+											
+							</div>
+						</div>
+					</div>
 				</content>
+				
 			</article>
 			
 			<article class="bottomcontent">
 				<header>
-					<h2><a href="#" title="Second Post">Second Post</a></h2>
+					<h2>What's this Frenemy stuff?</h2>
 				</header>
-				<footer>
-					<p class="post-info">This was written by Charles Mc Kenna</p>
-				</footer>
 				
 				<content>
-					<p>First of all, it creates the worst, most cluttered invalid pseudo-HTML/CSS/JS mix I've ever seen. It violates every single rule I learned in web-development. Furthermore it throws together, what never should be so tightly coupled: Layout, Design, Logic and Communication </p>
-					<p>hi</p>
+					<p>Frememy is a way for you to greate outdoor games and play against your friends. 
+					You play by getting to certin location points defined in the game, before your frenemies. 
+					You can run, cycle, climb, sail, whatever... to these points. 
+					Basically you can create a game that uses any transport you can think of. </p>
+					<p>Anyone can create a game and invite their frenemies to compete against them. 
+					But remember, never create a game you don't intend to win</p>
 				</content>
 			</article>
 			
@@ -122,23 +144,23 @@
 
 	<aside class="new-game-sidebar">
 		<h3>Game details</h3>
-		<ul id="gameform">
-			<li>Name of Game<input class="newGameName" type="text" name="newGameName"/></li>
-			<li>Location<input class="newGameLocation" type="text" name="newGameLocation"/></li>
-			<li>A player<input class="newGamePlayer" type="text" name="newGamePlayer"/></li>
-			<li>Another player<input class="newGamePlayer" type="text" name="newGamePlayer"/></li>
-		</ul>
+		<p id="gameform">
+			<p>Name of Game<br><input class="newGameName" type="text" name="newGameName"/></p>
+			<p>Location<br><input class="newGameLocation" type="text" name="newGameLocation"/></p>
+			<p>A player<br><input class="newGamePlayer" type="text" name="newGamePlayer"/></p>
+			<p>Another player<br><input class="newGamePlayer" type="text" name="newGamePlayer"/></p>
+		</p>
 		<button id="cancel">Cancel</button>
 		<button id="saveGame">Save Game</button>
 	</aside>
 
 	<aside class="game-details-sidebar">
 		<h3>Game details</h3>
-		<ul id="gameDetails">
-			<li id="gameDetailsName"></li>
-			<li id="gameDetailsLocation"></li>
-			<li>Players:</li>
-		</ul>
+		<p id="gameDetails">
+			<p id="gameDetailsName"></p>
+			<p id="gameDetailsLocation"></p>
+			<p>Players:</p>
+		</p>
 	</aside>
 	
 	<aside class="bottom-sidebar">
