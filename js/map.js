@@ -175,7 +175,7 @@ function addMarker(location) {
 		}
 	});
 	
-	// Right click event fro marker
+	// Right click event on marker
     google.maps.event.addListener(marker, 'rightclick', function(event) {
 		marker.setMap(null);
 		console.log("markers count " + targetMarkersToSave.length);
@@ -183,7 +183,18 @@ function addMarker(location) {
 		targetMarkersToSave.splice(pos, 1);
 		console.log("markers count " + targetMarkersToSave.length);
     });
+    
+    new LongPress(map, 500);
+	// Long press event on marker
+    google.maps.event.addListener(marker, 'longpress', function(event) {
+		marker.setMap(null);
+		console.log("markers count " + targetMarkersToSave.length);
+		var pos = targetMarkersToSave.indexOf(marker);
+		targetMarkersToSave.splice(pos, 1);
+		console.log("markers count " + targetMarkersToSave.length);
+    });
 }
+
 
 function captureForm() {
 	console.log("captureForm");
@@ -408,6 +419,35 @@ function addMarkerPopups(marker) {
 	}); 
 }
 
+function LongPress(map, length) {
+	this.length_ = length;
+	var me = this;
+	me.map_ = map;
+	me.timeoutId_ = null;
+	google.maps.event.addListener(map, 'mousedown', function(e) {
+		me.onMouseDown_(e);
+	});
+	google.maps.event.addListener(map, 'mouseup', function(e) {
+		me.onMouseUp_(e);
+	});
+	google.maps.event.addListener(map, 'drag', function(e) {
+		me.onMapDrag_(e);
+	});
+};
+LongPress.prototype.onMouseUp_ = function(e) {
+	clearTimeout(this.timeoutId_);
+};
+LongPress.prototype.onMouseDown_ = function(e) {
+	clearTimeout(this.timeoutId_);
+	var map = this.map_;
+	var event = e;
+	this.timeoutId_ = setTimeout(function() {
+		google.maps.event.trigger(map, 'longpress', event);
+	}, this.length_);
+};
+LongPress.prototype.onMapDrag_ = function(e) {
+	clearTimeout(this.timeoutId_);
+};
 
 
 // On startup
