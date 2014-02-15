@@ -181,7 +181,8 @@ function detectBrowser() {
 		alert("its a phone=" + useragent);
 		
 		// Dynamically chage the body size to 100%
-		$('body').css('width', '100%')
+		$('body').css('width', '100%');
+		$('cycle-slideshow').css('display', 'none');
 		//mapdiv.style.width = '100%';
 		//mapdiv.style.height = '100%';
 	} else {
