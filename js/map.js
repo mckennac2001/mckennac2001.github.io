@@ -224,7 +224,7 @@ function addMarker(location) {
 		console.log("markers count " + targetMarkersToSave.length);
     });
     
-    new LongPress(map, 500);
+    new LongPress(marker, 500);
 	// Long press event on marker
     google.maps.event.addListener(marker, 'longpress', function(event) {
     	console.log('longpress');
