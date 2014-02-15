@@ -72,6 +72,41 @@ String.prototype.hashCode = function() {
 	return hash;
 };
 
+function LongPress(map, length) {
+	this.length_ = length;
+	var me = this;
+	me.map_ = map;
+	me.timeoutId_ = null;
+	google.maps.event.addListener(map, 'mousedown', function(e) {
+		me.onMouseDown_(e);
+	});
+	google.maps.event.addListener(map, 'mouseup', function(e) {
+		me.onMouseUp_(e);
+	});
+	google.maps.event.addListener(map, 'drag', function(e) {
+		me.onMapDrag_(e);
+	});
+}; 
+
+// Longpress functionality for markers
+LongPress.prototype.onMouseUp_ = function(e) {
+	console.log("prototype.onMouseUp");
+	clearTimeout(this.timeoutId_);
+};
+LongPress.prototype.onMouseDown_ = function(e) {
+	console.log("prototype.onMouseDown");
+	clearTimeout(this.timeoutId_);
+	var map = this.map_;
+	var event = e;
+	this.timeoutId_ = setTimeout(function() {
+		console.log("trigger longpress");
+		google.maps.event.trigger(map, 'longpress', event);
+	}, this.length_);
+};
+LongPress.prototype.onMapDrag_ = function(e) {
+	clearTimeout(this.timeoutId_);
+};
+
 function drawGameMap() {
 	console.log("drawGameMap");
 	
@@ -157,6 +192,7 @@ function addMarker(location) {
 	
 	// Click event for marker
 	google.maps.event.addListener(marker, 'click', function() {
+		console.log('click');
 		if (!infoBoxVisible) {
 			// Close the other possible info box
 			
@@ -177,10 +213,11 @@ function addMarker(location) {
 	
 	// Right click event on marker
     google.maps.event.addListener(marker, 'rightclick', function(event) {
-		marker.setMap(null);
+    	console.log('rightclick');
 		if (infoBoxVisible) {
 			infobox.close();
 		}
+		marker.setMap(null);
 		console.log("markers count " + targetMarkersToSave.length);
 		var pos = targetMarkersToSave.indexOf(marker);
 		targetMarkersToSave.splice(pos, 1);
@@ -190,6 +227,10 @@ function addMarker(location) {
     new LongPress(map, 500);
 	// Long press event on marker
     google.maps.event.addListener(marker, 'longpress', function(event) {
+    	console.log('longpress');
+		if (infoBoxVisible) {
+			infobox.close();
+		}
 		marker.setMap(null);
 		console.log("markers count " + targetMarkersToSave.length);
 		var pos = targetMarkersToSave.indexOf(marker);
@@ -422,21 +463,7 @@ function addMarkerPopups(marker) {
 	}); 
 }
 
-function LongPress(map, length) {
-	this.length_ = length;
-	var me = this;
-	me.map_ = map;
-	me.timeoutId_ = null;
-	google.maps.event.addListener(map, 'mousedown', function(e) {
-		me.onMouseDown_(e);
-	});
-	google.maps.event.addListener(map, 'mouseup', function(e) {
-		me.onMouseUp_(e);
-	});
-	google.maps.event.addListener(map, 'drag', function(e) {
-		me.onMapDrag_(e);
-	});
-};
+
 
 
 // On startup
@@ -446,23 +473,6 @@ $(document).ready(function() {
 	navigator.geolocation.getCurrentPosition(initialiseMyLocation);
 	// Set functionality for myLocation button
 	$('#myLocation').click(panToMyLocation);
-	
-	
-	LongPress.prototype.onMouseUp_ = function(e) {
-		clearTimeout(this.timeoutId_);
-	};
-	LongPress.prototype.onMouseDown_ = function(e) {
-		clearTimeout(this.timeoutId_);
-		var map = this.map_;
-		var event = e;
-		this.timeoutId_ = setTimeout(function() {
-			google.maps.event.trigger(map, 'longpress', event);
-		}, this.length_);
-	};
-	LongPress.prototype.onMapDrag_ = function(e) {
-		clearTimeout(this.timeoutId_);
-	};
-
 	
 /*	if ( sessionStorage.getItem("gameid")) {
 		// Restore the contents of the text field
