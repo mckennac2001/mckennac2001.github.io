@@ -163,13 +163,13 @@ function addMarker(location) {
 	
 	targetMarkersToSave.push(marker);
 	//targetMarkers.push(new GameMarker("", marker));
-	
+		
 	var infobox = new InfoBox({
 		content: "<div id='tabs'>"+
-					"<form id='targetNameForm' onSubmit='captureForm()'>"+
+					"<form id='targetNameForm'>"+
 			        	"<div>"+
-			        		"<input type='text' width='100%' id='targetNameText' value='" + targetName + "'>"+ 
-			        		//"<script> $('#targetNameText').submit(function(e) { e.preventDefault(); console.log('infoBox submit'); } </script>" +
+			        		"<input type='text' width='100%' id='targetNameText' value='" + marker.getTitle() + "'>"+ 
+			        		//" <script> $('this').parent().submit(function(e) { e.preventDefault(); console.log('infoBox submit'); } </script>" +
 			        	"</div>"+
 			        "</form>"+
 			     "</div>",
@@ -204,7 +204,11 @@ function addMarker(location) {
 			infoBoxes.push(infobox);
 			infoBoxVisible = true;
 		} else {
-			console.log($('#targetNameText').val());
+			var markerText = $('#targetNameText').val();
+			console.log(markerText);
+			if (markerText) {
+				marker.setTitle(markerText);
+			}
 			infobox.close();
 			infoBoxes.pop();
 			infoBoxVisible = false;
@@ -239,11 +243,15 @@ function addMarker(location) {
     });
 }
 
-
 function captureForm() {
 	console.log("captureForm");
+	console.log("captured " + $('#targetNameText').val());
+	while (infoBoxes.length > 0) {
+		infoBoxes.pop().close();
+	}
 	return false;
-}
+};
+
 
 function saveGame() {
 	console.log("saveGame");	
