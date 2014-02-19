@@ -12,6 +12,8 @@
 	<!--   <link rel='stylesheet' type="test/css" media='screen and (min-width: 601px)' href='css/gameStyle.css'/>
 	<link rel='stylesheet' type="test/css" media='screen and (min-width: 150px) and (max-width: 600px)' href='css/gameStyle-thin.css'/> -->
 	<link rel='stylesheet' type="test/css" href='css/gameStyle.css'/>
+	<link rel='stylesheet' type="test/css" href='css/overlay.css'/>
+	<link rel="stylesheet" type="test/css" href="css/magnific-popup.css"> 
 
 <!-- 
 	<script src='https://cdn.firebase.com/js/client/1.0.3/firebase.js'></script>
@@ -20,7 +22,7 @@
 	
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 	<script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
-	 -->
+-->
 	<script src='js_downloaded/firebase.js'></script>
 	<script src='js_downloaded/firebase-simple-login.js'></script>
 <!--  	<script src="js_downloaded/jquery.min.js"></script>-->
@@ -32,6 +34,7 @@
 	<script type="text/javascript" src="js_downloaded/jquery.cycle2.min.js"></script> 
 	<script type="text/javascript" src="js_downloaded/jquery.cycle2.carousel.min.js"></script> 
 	<script type="text/javascript" src="js_downloaded/jquery.cycle2.flip.min.js"></script> 
+	<script type="text/javascript" src="js_downloaded/jquery.magnific-popup.min.js"></script> 
 
 	<script>
 		var map;
@@ -149,18 +152,59 @@
 			<p>Location<br><input class="newGameLocation" type="text" name="newGameLocation"/></p>
 			<p>A player<br><input class="newGamePlayer" type="text" name="newGamePlayer"/></p>
 			<p>Another player<br><input class="newGamePlayer" type="text" name="newGamePlayer"/></p>
-		</p>
+			<p>To display a lightbox click <a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">here</a></p>
+        	<div id="light" class="white_content">This is the lightbox content. <a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">Close</a></div>
+        	
+        	<a id="test-popup-link">Open popup</a><br>
+        	<a href="AddPlayers.html" data-mfp-src="#test-popup" class="open-popup-link">Show inline popup</a>
+        	
+        	<button id="open-popup">Open popup</button>
+			<div id="my-popup" class="mfp-hide white-popup">
+			  Inline popup
+			</div>
+			
+			 <a class="popup-with-form" href="#test-form">Open form</a>
+			
+        	<div id="fade" class="black_overlay"></div>
 		<button id="cancel">Cancel</button>
 		<button id="saveGame">Save Game</button>
 	</aside>
-
+    
+    <div id="player-form"></div>
+<!--    
+      <form id="test-form" class="mfp-hide white-popup">
+        <h2>Players</h2>
+        <fieldset style="border:0;">
+          <p>Lightbox has an option to automatically focus on the first input. It's strongly recommended to use <code>inline</code> popup type for lightboxes with form instead of <code>ajax</code> (to keep entered data if the user accidentally refreshed the page).</p>
+          <ol>
+            <li>
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" placeholder="Name" required>
+            </li>
+            <li>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="example@domain.com" required>
+            </li>
+            <li>
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" placeholder="Eg. +447500000000" required>
+            </li>
+            <li>
+              <label for="textarea">Textarea</label><br/>
+              <textarea id="textarea">Try to resize me to see how popup CSS-based resizing works.</textarea>
+            </li>
+          </ol>
+          <p><a class="popup-players-save" href="#">Save</a></p> <p><a class="popup-players-cancel" href="#">Cancel</a></p>
+        </fieldset>
+      </form>
+-->      
+      
 	<aside class="game-details-sidebar">
 		<h3>Game details</h3>
-		<p id="gameDetails">
-			<p id="gameDetailsName"></p>
-			<p id="gameDetailsLocation"></p>
-			<p>Players:</p>
-		</p>
+		<p id="gameDetails"></p>
+		<p id="gameDetailsName"></p>
+		<p id="gameDetailsLocation"></p>
+		<p>Players:</p>
 	</aside>
 	
 	<aside class="bottom-sidebar">

@@ -329,6 +329,22 @@ cycle-slideshow { width: 45%; min-width: 200px; max-width: 500px; margin: 10px a
     width: 100%; padding: 0; display: block;
 }
 
+/* for the magnificPopup */
+.white-popup {
+  position: relative;
+  background: #FFF;
+  padding: 20px;
+  width: auto;
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+
+#open-popup {padding:20px}
+
+
+
+
 @media only screen and (min-width: 150px) and (max-width: 800px) {
 
 	.body {

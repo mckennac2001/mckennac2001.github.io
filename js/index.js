@@ -5,6 +5,35 @@ var speed = 0;
 // Setup all the actions
 $(document).ready(function() {
 	
+	$(function(){
+		$("#player-form").load("AddPlayers.html"); 
+	});
+    
+	$('.popup-with-form').magnificPopup({
+		type: 'inline',
+		preloader: false,
+		focus: '#name',
+		showCloseBtn: false,
+
+		// When elemened is focused, some mobile browsers in some cases zoom in
+		// It looks not nice, so we disable it:
+		callbacks: {
+			beforeOpen: function() {
+				if($(window).width() < 700) {
+					this.st.focus = false;
+				} else {
+					this.st.focus = '#name';
+				}
+			}
+		}
+	});
+	$(document).on('click', '.popup-players-save', function (e) {
+		$.magnificPopup.close();
+	});
+	$(document).on('click', '.popup-players-cancel', function (e) {
+		$.magnificPopup.close();
+	});
+    
 /*	$("#printGameData").click(function () {
 		console.log('printGameData');
 		parseGameSnapshot(gameSnapshots[0]);
