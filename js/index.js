@@ -5,10 +5,12 @@ var speed = 0;
 // Setup all the actions
 $(document).ready(function() {
 	
+	// Include the AddPlayers html code
 	$(function(){
 		$("#player-form").load("AddPlayers.html"); 
 	});
     
+	// Setup the Add Players form popup
 	$('.popup-with-form').magnificPopup({
 		type: 'inline',
 		preloader: false,
