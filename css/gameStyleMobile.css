@@ -85,10 +85,12 @@ button:hover {
 }
 
 .mainheader nav ul li {
-	width: 100%;
-	text-align: center;
+/*	width: 100%; 
+	text-align: center; */
+	font-size: 160%;
 	float: left;
 	display: inline;
+	
 }
 
 .mainheader nav a:link, .mainheader nav a:visited {
