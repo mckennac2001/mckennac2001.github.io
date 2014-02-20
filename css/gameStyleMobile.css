@@ -1,0 +1,339 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	background-image: url('../img/bg.jpg');
+	color: #000305;
+	font-size: 160%; /* base font is 14 px */
+	font-family: Arial;
+	line-height: 1.5;
+	text-align: left;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:link, a:visited {
+	color: #308d54;
+}
+
+a:active {
+	background-color: #308d54;
+	color: #FFF;
+}
+
+a:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #308d54), color-stop(1, #77d42a) );
+	background:-moz-linear-gradient( center top, #308d54 5%, #77d42a 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#308d54', endColorstr='#77d42a');
+}
+
+h2 {
+	color: #308d54;
+}
+	
+button {
+	-moz-box-shadow:inset 0px 0px 0px -50px #308d54;
+	-webkit-box-shadow:inset 0px 0px 0px -50px #308d54;
+	box-shadow:inset 0px 0px 0px -50px #308d54;
+/*	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #77d42a), color-stop(1, #308d54) );
+	background:-moz-linear-gradient( center top, #77d42a 5%, #308d54 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#77d42a', endColorstr='#308d54');*/
+	background-color:#308d54;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	text-indent:0px;
+	display:inline-block;
+	color:#FFF;
+	text-decoration:none;
+	text-align:center;
+}
+button:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #308d54), color-stop(1, #77d42a) );
+	background:-moz-linear-gradient( center top, #308d54 5%, #77d42a 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#308d54', endColorstr='#77d42a');
+	background-color:#5cb811;
+}button:active {
+	position:relative;
+	top:1px;
+}
+
+.body {
+	margin: 0 auto;
+	width: 100%;
+	clear: both;
+}
+
+.big-rabbit-img {
+	width: 94%;
+	height: auto;
+	margin: 2% 0;
+}
+
+.mainheader nav {
+	background-color: #e1d1a4;
+	height: 140px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.mainheader nav ul {
+	list-style: none;
+	margin: 0 auto;
+}
+
+.mainheader nav ul li {
+	float: left;
+	display: inline;
+}
+
+.mainheader nav a:link, .mainheader nav a:visited {
+	color: #FFF;
+	display: inline-block;
+	padding: 40px 25px;
+	height: 60px;
+}
+
+.mainheader nav a:hover, .mainheader nav a:active,
+.mainheader nav .active a:link,	.mainheader nav .active a:visited {
+	background-color: #308d54;
+	text-shadow: none;
+}
+
+.mainheader nav ul li a {
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.maincontent {
+	line-height: 25px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+#gametitle {
+	text-align:center;
+}
+	
+#mapcanvas {
+	width: 100%;
+	height: 400px;
+/*	margin: 2%;*/
+	margin: 15px 0 15px 0;
+}
+
+#newmapcanvas {
+	width: 100%;
+	height: 400px;
+	margin: 15px 0 15px 0;
+}
+
+.content {
+	width: 100%;
+	float: left;
+}
+
+.mapcontent {
+	display: none;
+}
+
+.newmapcontent {
+	display: none;
+}
+
+.topcontent {
+	display: none;
+	height: 0px;
+	background-color: #FFF;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	padding: 3% 5%;
+/*	margin-top: 2%;*/
+	margin-top: 15px;
+}	
+	
+.bottomcontent {
+	display: block;
+	background-color: #FFF;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	padding: 3% 5%;
+	margin-top: 15px;
+}
+
+.gameslistcontent {
+	display: none;
+	background-color: #FFF;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	padding: 3% 5%;
+	margin-top: 15px;
+}	
+	
+.slideshows {
+	width: 100%;
+}
+
+.aslide {
+	width: 100%;
+}
+	
+.game-select-sidebar {
+	display: block;
+	width: 14%;
+	float: left;
+	background-color: #FFF;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	margin: 15px 0 15px 2%;
+	padding: 2% 2%;
+}
+
+.game-select-sidebar select {
+	margin: none;
+	width: 100%;
+}
+
+.game-details-sidebar {
+	display: none;
+	width: 14%;
+	float: left;
+	background-color: #FFF;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	margin: 15px 0 15px 2%;
+	padding: 2% 2%;
+}
+
+.game-details-sidebar ul {
+	list-style: none;
+}
+
+.post-info {
+	font-style: italic;
+	color: #999;
+	font-size: 87.5%;
+}
+
+.new-game-sidebar {
+	display: none;
+	width: 14%;
+	float: left;
+	background-color: #FFF;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	margin: 15px 0 15px 2%;
+	padding: 2% 2%;
+	/*min-width:160px; */
+}
+
+.new-game-sidebar li {
+	margin: none;
+	list-style: none;
+	padding: 0% 0%;
+}
+/*
+.new-game-sidebar li div {
+	overflow: hidden;
+    white-space: nowrap;
+}
+*/
+
+.new-game-sidebar input {
+	margin: none;
+	width: 100%;
+}
+
+.bottom-sidebar {
+	width: 14%;
+	float: left;
+	background-color: #FFF;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	margin: 0 0 15px 2%;
+	padding: 2% 2%;
+}
+
+.mainfooter {
+	display: none;
+	width: 100%;
+	height: 40px;
+	float: left;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	background: #e1d1a4;
+	margin 15px 0;
+	margin-top: 2%;
+}
+
+.mainfooter p {
+	width: 92%;
+	margin: 1% auto;
+	color: #FFF;
+}
+	
+	
+.infobox-wrapper {
+    display:none;
+}
+
+.infobox1 {
+    border:2px solid black;
+    margin-top: 8px;
+    background:#333;
+    color:#FFF;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:12px;
+    padding: .5em 1em;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    text-shadow:0 -1px #000000;
+    -webkit-box-shadow: 0 0  8px #000;
+    box-shadow: 0 0 8px #000;
+}
+
+/* set border-box so that percents can be used for width, padding, etc (personal preference) */
+.cycle-slideshow, .cycle-slideshow * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+cycle-slideshow { width: 45%; min-width: 200px; max-width: 500px; margin: 10px auto; padding: 0; position: relative;
+    background: url(http://malsup.github.com/images/spinner.gif) 50% 50% no-repeat;
+ }
+ 
+/* slideshow images (for most of the demos, these are the actual "slides") */
+.cycle-slideshow img { 
+    /* 
+    some of these styles will be set by the plugin (by default) but setting them here
+    helps avoid flash-of-unstyled-content
+    */
+    position: absolute; top: 0; left: 0;
+    width: 100%; padding: 0; display: block;
+}
+
+/* for the magnificPopup */
+.white-popup {
+  position: relative;
+  background: #FFF;
+  padding: 20px;
+  width: auto;
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+
+#open-popup {padding:20px}
+
+
+

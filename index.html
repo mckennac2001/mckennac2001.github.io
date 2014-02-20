@@ -9,9 +9,24 @@
 	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="img/favicon.ico" type="image/x-icon">
 	
+	<script>
+	(function() {
+		console.log("detectBrowser");
+		var useragent = navigator.userAgent;
+		//var mapdiv = document.getElementById("mapcanvas");
+	
+		if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
+			document.write(	"<link rel='stylesheet' type='test/css' href='css/gameStyle.css'/>");
+		} else {
+			document.write(	"<link rel='stylesheet' type='test/css' href='css/gameStyleMobile.css'/>");
+		}
+	})();
+	
+	</script>
+	
 	<!--   <link rel='stylesheet' type="test/css" media='screen and (min-width: 601px)' href='css/gameStyle.css'/>
 	<link rel='stylesheet' type="test/css" media='screen and (min-width: 150px) and (max-width: 600px)' href='css/gameStyle-thin.css'/> -->
-	<link rel='stylesheet' type="test/css" href='css/gameStyle.css'/>
+<!-- <link rel='stylesheet' type="test/css" href='css/gameStyle.css'/> -->
 	<link rel='stylesheet' type="test/css" href='css/overlay.css'/>
 	<link rel="stylesheet" type="test/css" href="css/magnific-popup.css"> 
 

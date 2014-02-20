@@ -186,7 +186,7 @@ $(document).ready(function() {
 	    drawGameMap();
 	});
 	
-	detectBrowser();
+	//detectBrowser();
 });
 
 function updateSelectList(aGame) {
@@ -240,22 +240,26 @@ function resizePage() {
     $("#gallery").width(gWidth);
     $("#gallery").height(gHeight);*/
 }
-
-function detectBrowser() {
+/*
+function detectPhone() {
 	console.log("detectBrowser");
 	var useragent = navigator.userAgent;
 	//var mapdiv = document.getElementById("mapcanvas");
 
 	if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
+		return true;
+//	if (1) {
 		//alert("its a phone=" + useragent);
 		
 		// Dynamically chage the body size to 100%
 		$('body').css('width', '100%');
-		$('topcontent').css('display', 'none');
-		$('mainheader nav').css('height', '100px');
-		$('mainheader nav a:link').css('height', '50px');
-		$('mainfooter').css('display', 'none');
-		$('body').css('font-size', '120%');
+		$('body').css('font-size', '140%');
+		$('.topcontent').css('display', 'none');
+		$('.mainheader nav').css('height', '160px');
+		$('.mainheader nav a:link').css('height', '70px');
+		$('.mainheader nav a:link').css('padding', '25px 25px');
+		$('.mainfooter').css('display', 'none');
+		
 
 		//mapdiv.style.width = '100%';
 		//mapdiv.style.height = '100%';
@@ -263,5 +267,5 @@ function detectBrowser() {
 		//mapdiv.style.width = '600px';
 		//mapdiv.style.height = '800px';
 	}
-}
+}*/
 
