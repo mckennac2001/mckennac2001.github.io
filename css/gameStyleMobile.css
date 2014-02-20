@@ -198,12 +198,12 @@ button:hover {
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	margin: 15px 0% 15px 0%;
-	padding: 2% 0% 6% 2%;
+	padding: 5% 0% 6% 2%;
 }
 
 .game-select-sidebar select {
 	margin: none;
-	width: 94%;
+	width: 92%;
 	font-size: 140%;
 }
 
