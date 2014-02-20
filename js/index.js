@@ -247,12 +247,16 @@ function detectBrowser() {
 	//var mapdiv = document.getElementById("mapcanvas");
 
 	if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
-		alert("its a phone=" + useragent);
+		//alert("its a phone=" + useragent);
 		
 		// Dynamically chage the body size to 100%
 		$('body').css('width', '100%');
 		$('slideshows').css('display', 'none');
 		$('slideshows').css('height', '0%');
+		$('mainheader nav').css('height', '80px');
+		$('mainfooter').css('display', 'none');
+		$('body').css('font-size', '120%');
+
 		//mapdiv.style.width = '100%';
 		//mapdiv.style.height = '100%';
 	} else {
