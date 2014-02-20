@@ -209,7 +209,7 @@ button:hover {
 
 .game-details-sidebar {
 	display: none;
-	width: 100%;
+	width: 98%;
 	float: left;
 	background-color: #FFF;
 	border-radius: 5px;
@@ -231,7 +231,7 @@ button:hover {
 
 .new-game-sidebar {
 	display: none;
-	width: 100%;
+	width: 98%;
 	float: left;
 	background-color: #FFF;
 	border-radius: 5px;
