@@ -247,13 +247,13 @@ function detectBrowser() {
 	//var mapdiv = document.getElementById("mapcanvas");
 
 	if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
-		alert("its a phone=" + useragent);
+		//alert("its a phone=" + useragent);
 		
 		// Dynamically chage the body size to 100%
 		$('body').css('width', '100%');
-		$('slideshows').css('display', 'none');
-		$('slideshows').css('height', '0%');
-		$('mainheader nav').css('height', '80px');
+		$('topcontent').css('display', 'none');
+		$('mainheader nav').css('height', '100px');
+		$('mainheader nav a:link').css('height', '50px');
 		$('mainfooter').css('display', 'none');
 		$('body').css('font-size', '120%');
 
