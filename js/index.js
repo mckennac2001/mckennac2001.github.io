@@ -1,9 +1,18 @@
 
 // Animation speed
-var speed = 0;
+var speed = 600;
+// Global variable
+var gameId;
 
 // Setup all the actions
 $(document).ready(function() {
+	
+	// Login to firebase
+	auth.login('password', {
+		email: 'mckenna.charles@gmail.com',
+		password: 'thegame',
+		rememberMe: true
+	});
 	
 	// Include the AddPlayers html code
 	$(function(){
@@ -44,12 +53,17 @@ $(document).ready(function() {
 	// Start off with the Home button active
 	$('#navHome').attr("class","active");
 
-	// Save has been selected
+	// Save New Game has been selected
 	$('#saveGame').click(function() {
 		saveGame();
 		$('#navHome').trigger('click');
 	});
 		
+	// Cancel New Game has been selected
+	$('#cancelSave').click(function() {
+		$('#navHome').trigger('click');
+	});
+	
 	// Delete has been selected
 	$('#maingamelist').on('click', 'button.delete', function() {
 		console.log('delete this = ' + $(this).parent().parent().attr('value') );
@@ -65,14 +79,20 @@ $(document).ready(function() {
 	//$("#maingamelist ul").append('<li value=' + aGame.id + '><p>' 
 	//		+ aGame.name + ' <button class="edit">Edit</button>  <button class="delete">Delete</button></p></li>');
 	
-	
+	// Resize the map element when the user has stopped resizing the page
+	//var TO = false;
+	$(window).resize(function () {
+		resizePage();
+//		if (TO !== false)
+//			clearTimeout(TO);
+//		TO = setTimeout(resizePage, 200); //200 is time in miliseconds
+	});
+	// Call once at startup too
+	resizePage();
+	    
 	// Home button
 	$('#navHome').click(function() {
-/*	    $('.topcontent').css("display", "block");
-	    $('.bottomcontent').css("display", "block");
-	    $('.mapcontent').css("display", "none");	
-	    $('.gameslistcontent').css("display", "none");	*/
-
+		// Main content area
 	    $('.topcontent').slideDown(speed);
 	    $('.bottomcontent').slideDown(speed);
 	    $('.mapcontent').hide(speed);
@@ -82,8 +102,8 @@ $(document).ready(function() {
 	    $('.new-game-sidebar').hide(speed);
 	    $('.game-select-sidebar').slideDown(speed);
 	    $('.game-details-sidebar').hide(speed);
-	    
-	    
+	    $('.bottom-sidebar').slideDown(speed);
+	    // Nav bar
 	    $('#navHome').attr("class","active");
 	    $('#navCurrentGame').attr("class","notActive");
 	    $('#navNewGame').attr("class","notActive");
@@ -91,11 +111,7 @@ $(document).ready(function() {
 	
 	// CurrentGame button
 	$('#navCurrentGame').click(function() {
-/*	    $('.topcontent').css("display", "none");
-	    $('.bottomcontent').css("display", "none");
-	    $('.mapcontent').css("display", "none");	
-	    $('.gameslistcontent').css("display", "block");	*/
-		
+		// Main content area
 	    $('.topcontent').hide(speed);
 	    $('.bottomcontent').hide(speed);
 	    $('.mapcontent').hide(speed);
@@ -106,7 +122,7 @@ $(document).ready(function() {
 	    $('.game-select-sidebar').slideDown(speed);
 	    $('.game-details-sidebar').hide(speed);
 	    $('.bottom-sidebar').slideDown(speed);
-	    
+	    // Nav bar
 	    $('#navHome').attr("class","notActive");
 	    $('#navCurrentGame').attr("class","active");
 	    $('#navNewGame').attr("class","notActive");
@@ -114,7 +130,7 @@ $(document).ready(function() {
 
 	// NewGame button
 	$('#navNewGame').click(function() {
-		
+		// Main content area
 	    $('.topcontent').hide(speed);
 	    $('.bottomcontent').hide(speed);
 	    $('.mapcontent').hide(speed);
@@ -125,7 +141,7 @@ $(document).ready(function() {
 	    $('.game-select-sidebar').hide(speed);
 	    $('.game-details-sidebar').hide(speed);
 	    $('.bottom-sidebar').hide(speed);
-	    
+	    // Nav bar
 	    $('#navHome').attr("class","notActive");
 	    $('#navCurrentGame').attr("class","notActive");
 	    $('#navNewGame').attr("class","active");
@@ -150,7 +166,8 @@ $(document).ready(function() {
 	    $('.bottomcontent').css("display", "none");
 	    $('.mapcontent').css("display", "block");
 	    $('.gameslistcontent').css("display", "none");	*/
-
+		
+		// Main content area
 	    $('.topcontent').hide(speed);
 	    $('.bottomcontent').hide(speed);
 	    $('.mapcontent').slideDown(speed);
@@ -161,7 +178,7 @@ $(document).ready(function() {
 	    $('.game-select-sidebar').slideDown(speed);
 	    $('.game-details-sidebar').slideDown(speed);
 	    $('.bottom-sidebar').hide(speed);
-	    
+	    // Nav bar
 	    $('#navHome').attr("class","notActive");
 	    $('#navCurrentGame').attr("class","active");
 	    $('#navNewGame').attr("class","notActive");
@@ -177,8 +194,10 @@ function updateSelectList(aGame) {
 	// Add the game id to the selects list in index.html
 	$("#gameSelect").append('<option value=' + aGame.id + '>' + aGame.name + '</option>');
 	
-	$("#maingamelist ul").append('<li value=' + aGame.id + '><p>' 
-			+ aGame.name + ' <button class="edit">Edit</button>  <button class="delete">Delete</button></p></li>');
+//	$("#maingamelist ul").append('<li value=' + aGame.id + '><p>' 
+//			+ aGame.name + ' <button class="edit">Edit</button>  <button class="delete">Delete</button></p></li>');
+	$("#maingamelist table").append('<tr value=' + aGame.id + '><td>' 
+			+ aGame.name + '</td><td> <button class="edit">Edit</button></td><td><button class="delete">Delete</button></td></tr>');
 	
 	// Select list eye candy
 	$(".new-game-sidebar li").mouseenter(function() {
@@ -194,13 +213,32 @@ function deleteFromSelectList(gameId) {
 	// Remove this entry from all the UI lists
 	$("#gameSelect").find('option[value=' + gameId + ']').remove();
 	
-	$("#maingamelist ul").find('li[value=' + gameId + ']').remove();
+//	$("#maingamelist ul").find('li[value=' + gameId + ']').remove();
+	$("#maingamelist table").find('td[value=' + gameId + ']').remove();
 }
 
 // Update UI to show the details of the current game
 function updateUiWithCurrentGame(aGame) {
 	$('#gameDetailsName').html("<strong>Name: </strong>" + aGame.name);
 	$('#gameDetailsLocation').html("<strong>Location: </strong>" + aGame.location);
+}
+
+function resizePage() {
+
+	console.log("resizePage");
+    //gWidth = $(window).width();
+    gHeight = ($(window).height() - ($('mainheader').height() * 2)) * 0.8;
+    if (gHeight < $('new-game-sidebar').height()) {
+    	gHeight = $('new-game-sidebar').height();
+    }
+    $("#newmapcanvas").height(gHeight);
+    $("newmapcontent").height(gHeight);
+    
+  /*  gWidth = gWidth - ((gWidth > 200) ? 100 : 0);
+    gHeight = gHeight - ((gHeight > 100) ? 50 : 0);
+    $("#gallerycontainer").width(gWidth);
+    $("#gallery").width(gWidth);
+    $("#gallery").height(gHeight);*/
 }
 
 function detectBrowser() {

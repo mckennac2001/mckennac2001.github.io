@@ -35,23 +35,10 @@
 	<script type="text/javascript" src="js_downloaded/jquery.cycle2.flip.min.js"></script> 
 	<script type="text/javascript" src="js_downloaded/jquery.magnific-popup.min.js"></script> 
 	<script type="text/javascript" src="js_downloaded/angular.min.js"></script> 
-
-	<script>
-		var map;
-<!--		var markers = []; -->
-		var myLocation = null;
-		var gameId;
-	</script>
 	
 	<script src='js/database.js'></script>
 	<script src="js/map.js"></script>
 	<script src='js/index.js'></script>
-
-	<script>
-		<!-- google.maps.event.addDomListener(window, 'load', initialize); -->
-	</script>	
-
-
 	
 </head>
 
@@ -115,8 +102,6 @@
 				<div id="mapcanvas"></div>
 				<button id="reset">Reset</button>
 				<button id="myLocation">My Location</button>
-	<!-- 		<button id="showTargets">Show Targets</button>
-				<button id="hideTargets">Remove Targets</button> -->
 			</div>
 
 			<div class="newmapcontent">
@@ -128,13 +113,11 @@
 				<header>
 					<h2>Select a Game</h2>
 				</header>
-
 				<div id="maingamelist">
-				<ul>
-				</ul>	
+				<table>
+				</table>
 				</div>
-			</div>
-						
+			</div>			
 		</div>
 	</div>
 	
@@ -148,14 +131,14 @@
 	<aside class="new-game-sidebar">
 		<h3>Game details</h3>
 		<p id="gameform">
-			<p>Name of Game<br><input class="newGameName" type="text" name="newGameName"/></p>
+			<p>Name of Game<br><input class="newGameName" type="text" name="newGameName" data-ng-model="gameName"/></p>
 			<p>Location<br><input class="newGameLocation" type="text" name="newGameLocation"/></p>
 			<a class="popup-with-form" href="#test-form">Add Players</a>
 			<div id="player-form"></div>  
 			
-		<button id="cancel">Cancel</button>
+		<button id="cancelSave">Cancel</button>
 		<button id="saveGame">Save Game</button>
-		<p>{{ playerName }}</p>
+		<p>{{ gameName }}</p>
 	</aside>
     
       

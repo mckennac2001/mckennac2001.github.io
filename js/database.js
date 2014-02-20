@@ -1,10 +1,9 @@
 
-
 var baseRef = new Firebase('https://the-game.firebaseio.com');
 var gamesPath = "/dynamic/games/";
 var gamesIds = new Array();
 var firebaseRefList = new Array();
-var firstDraw = true;
+var alreadyLoggedIn = new Boolean(false);
 
 // Start the Firebase communication
 var auth = new FirebaseSimpleLogin(baseRef, function(error, user) {
@@ -15,18 +14,15 @@ var auth = new FirebaseSimpleLogin(baseRef, function(error, user) {
 	} else if (user) {
 		// user is authenticated
 		console.log('User ID: ' + user.id + ', Provider: ' + user.provider);	
-		populateGameIdList(); 
-		
+		// Lets not populate our select list twice
+		if (alreadyLoggedIn == false) {
+			populateGameIdList(); 
+		}		
+		alreadyLoggedIn = true;
 	} else {
 		// user is logged out
 		console.log("User is logged out");
 	}
-});
-
-auth.login('password', {
-	email: 'mckenna.charles@gmail.com',
-	password: 'thegame',
-	rememberMe: true
 });
 
 function refreshGameIdList() {

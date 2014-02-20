@@ -1,60 +1,13 @@
 
-/*
-function populateMarkers() {
-
-	console.log("populateMarkers");
-	var markerArray = [new google.maps.LatLng(53.33, -6.2), new google.maps.LatLng(53.23, -6.1)]
-
-	for (var i=0; i<markerArray.length; i++) {
-		var marker = new google.maps.Marker({
-			position: markerArray[i],
-			map: map,
-			icon: "img/rabbit_icons_sm2.png"
-		});
-	}			
-}
-
-// Add a marker to the map and push to the array.
-function addMarker(location) {
-	console.log("addMarker");
-	var marker = new google.maps.Marker({
-		position: location,
-		map: map,	
-		icon: "img/rabbit_icons_sm2.png"
-	});
-	markers.push(marker);
-}
-
-// Sets the map on all markers in the array.
-function setAllMap(map) {
-	for (var i = 0; i < markers.length; i++) {
-		markers[i].setMap(map);
-	}
-}
-
-// Removes the markers from the map, but keeps them in the array.
-function clearMarkers() {
-	setAllMap(null);
-}
-
-// Shows any markers currently in the array.
-function showMarkers() {
-	setAllMap(map);
-}
-
-// Deletes all markers in the array by removing references to them.
-function deleteMarkers() {
-	clearMarkers();
-	markers = [];
-}
-*/
 
 // Storage for newGame markers
-
 var targetMarkersToSave = [];
 var targetMarkers = [];
 var playerMarkers = [];
 var infoBoxes = [];
+var firstDraw = true;
+var myLocation = null;
+var map;
 
 function GameMarker(id, marker) {
 	this.id = id;
@@ -90,11 +43,11 @@ function LongPress(map, length) {
 
 // Longpress functionality for markers
 LongPress.prototype.onMouseUp_ = function(e) {
-	console.log("prototype.onMouseUp");
+	//console.log("prototype.onMouseUp");
 	clearTimeout(this.timeoutId_);
 };
 LongPress.prototype.onMouseDown_ = function(e) {
-	console.log("prototype.onMouseDown");
+	//console.log("prototype.onMouseDown");
 	clearTimeout(this.timeoutId_);
 	var map = this.map_;
 	var event = e;
@@ -195,7 +148,6 @@ function addMarker(location) {
 		console.log('click');
 		if (!infoBoxVisible) {
 			// Close the other possible info box
-			
 			while (infoBoxes.length > 0) {
 				infoBoxes.pop().close();
 			}
@@ -218,29 +170,28 @@ function addMarker(location) {
 	// Right click event on marker
     google.maps.event.addListener(marker, 'rightclick', function(event) {
     	console.log('rightclick');
-		if (infoBoxVisible) {
-			infobox.close();
-		}
-		marker.setMap(null);
-		console.log("markers count " + targetMarkersToSave.length);
-		var pos = targetMarkersToSave.indexOf(marker);
-		targetMarkersToSave.splice(pos, 1);
-		console.log("markers count " + targetMarkersToSave.length);
+    	deleteMarker(marker, infobox);
     });
     
     new LongPress(marker, 500);
 	// Long press event on marker
     google.maps.event.addListener(marker, 'longpress', function(event) {
     	console.log('longpress');
-		if (infoBoxVisible) {
-			infobox.close();
-		}
-		marker.setMap(null);
-		console.log("markers count " + targetMarkersToSave.length);
-		var pos = targetMarkersToSave.indexOf(marker);
-		targetMarkersToSave.splice(pos, 1);
-		console.log("markers count " + targetMarkersToSave.length);
+    	deleteMarker(marker, infobox);
     });
+}
+
+// Remove a marker from the map and our list of markers to save
+function deleteMarker(marker, infobox){
+	
+	if (infoBoxVisible) {
+		infobox.close();
+	}
+	marker.setMap(null);
+	console.log("markers count " + targetMarkersToSave.length);
+	var pos = targetMarkersToSave.indexOf(marker);
+	targetMarkersToSave.splice(pos, 1);
+	console.log("markers count " + targetMarkersToSave.length);
 }
 
 function captureForm() {

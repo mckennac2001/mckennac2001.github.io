@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript" src='js_downloaded/firebase.js'></script>
+<script type="text/javascript" src="js_downloaded/angular.min.js"></script> 
+
+<!-- AngularFire Plugin -->
+<script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
+ 
+<script>
+  var myApp = angular.module("MyApp", ["firebase"]);
+ 
+  function MyController($scope, $firebase) {
+    var peopleRef = new Firebase("https://the-game.firebaseio.com/dynamic");
+    // Automatically syncs everywhere in realtime
+    $scope.people = $firebase(peopleRef);
+  }
+</script>
+
+</head>
+<body>
+
+</body>
+</html>

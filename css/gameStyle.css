@@ -40,18 +40,9 @@ button {
 	background:-moz-linear-gradient( center top, #77d42a 5%, #308d54 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#77d42a', endColorstr='#308d54');*/
 	background-color:#308d54;
-	-webkit-border-top-left-radius:5px;
-	-moz-border-radius-topleft:5px;
-	border-top-left-radius:5px;
-	-webkit-border-top-right-radius:5px;
-	-moz-border-radius-topright:5px;
-	border-top-right-radius:5px;
-	-webkit-border-bottom-right-radius:5px;
-	-moz-border-radius-bottomright:5px;
-	border-bottom-right-radius:5px;
-	-webkit-border-bottom-left-radius:5px;
-	-moz-border-radius-bottomleft:5px;
-	border-bottom-left-radius:5px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 	text-indent:0px;
 	display:inline-block;
 	color:#FFF;
@@ -130,14 +121,14 @@ button:hover {
 	
 #mapcanvas {
 	width: 100%;
-	height: 500px;
+	height: 600px;
 /*	margin: 2%;*/
 	margin: 15px 0 15px 0;
 }
 
 #newmapcanvas {
 	width: 100%;
-	height: 500px;
+	height: 600px;
 	margin: 15px 0 15px 0;
 }
 
