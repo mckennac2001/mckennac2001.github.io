@@ -227,12 +227,13 @@ function resizePage() {
 
 	console.log("resizePage");
     //gWidth = $(window).width();
-    gHeight = ($(window).height() - ($('mainheader').height() * 2)) * 0.8;
+/*    gHeight = ($(window).height() - ($('mainheader').height() * 2)) * 0.8;
     if (gHeight < $('new-game-sidebar').height()) {
     	gHeight = $('new-game-sidebar').height();
     }
     $("#newmapcanvas").height(gHeight);
     $("newmapcontent").height(gHeight);
+    */
     
   /*  gWidth = gWidth - ((gWidth > 200) ? 100 : 0);
     gHeight = gHeight - ((gHeight > 100) ? 50 : 0);
