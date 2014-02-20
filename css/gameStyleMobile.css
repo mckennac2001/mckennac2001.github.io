@@ -66,9 +66,8 @@ button:hover {
 }
 
 .big-rabbit-img {
-	width: 94%;
+	width: 0%;
 	height: auto;
-	margin: 2% 0;
 }
 
 .mainheader nav {
@@ -80,18 +79,21 @@ button:hover {
 }
 
 .mainheader nav ul {
+	padding-left: 0;
 	list-style: none;
 	margin: 0 auto;
 }
 
 .mainheader nav ul li {
+	width: 100%;
+	text-align: center;
 	float: left;
 	display: inline;
 }
 
 .mainheader nav a:link, .mainheader nav a:visited {
 	color: #FFF;
-	display: inline-block;
+	display: block;
 	padding: 40px 25px;
 	height: 60px;
 }
@@ -152,9 +154,9 @@ button:hover {
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-	padding: 3% 5%;
+	padding: 0;
 /*	margin-top: 2%;*/
-	margin-top: 15px;
+	margin-top: 0px;
 }	
 	
 .bottomcontent {
@@ -187,30 +189,31 @@ button:hover {
 	
 .game-select-sidebar {
 	display: block;
-	width: 14%;
+	width: 100%;
 	float: left;
 	background-color: #FFF;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-	margin: 15px 0 15px 2%;
+	margin: 15px 0% 15px 0%;
 	padding: 2% 2%;
 }
 
 .game-select-sidebar select {
 	margin: none;
-	width: 100%;
+	width: 96%;
+	font-size: 140%;
 }
 
 .game-details-sidebar {
 	display: none;
-	width: 14%;
+	width: 100%;
 	float: left;
 	background-color: #FFF;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-	margin: 15px 0 15px 2%;
+	margin: 0;
 	padding: 2% 2%;
 }
 
@@ -226,62 +229,36 @@ button:hover {
 
 .new-game-sidebar {
 	display: none;
-	width: 14%;
+	width: 100%;
 	float: left;
 	background-color: #FFF;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-	margin: 15px 0 15px 2%;
+	margin: 0;
 	padding: 2% 2%;
 	/*min-width:160px; */
 }
 
 .new-game-sidebar li {
-	margin: none;
+	margin: 0;
 	list-style: none;
-	padding: 0% 0%;
+	padding: 2% 2%;
+	font-size: 140%;
 }
-/*
-.new-game-sidebar li div {
-	overflow: hidden;
-    white-space: nowrap;
-}
-*/
 
 .new-game-sidebar input {
-	margin: none;
-	width: 100%;
+	margin: 0;
+	width: 96%;
+	font-size: 100%;
 }
 
 .bottom-sidebar {
-	width: 14%;
-	float: left;
-	background-color: #FFF;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	margin: 0 0 15px 2%;
-	padding: 2% 2%;
+	width: 0%;
 }
 
 .mainfooter {
 	display: none;
-	width: 100%;
-	height: 40px;
-	float: left;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	background: #e1d1a4;
-	margin 15px 0;
-	margin-top: 2%;
-}
-
-.mainfooter p {
-	width: 92%;
-	margin: 1% auto;
-	color: #FFF;
 }
 	
 	
