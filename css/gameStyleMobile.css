@@ -244,6 +244,7 @@ button:hover {
 
 .new-game-sidebar li {
 	margin: 0;
+	width: 96%;
 	list-style: none;
 	padding: 2% 2%;
 	font-size: 140%;
