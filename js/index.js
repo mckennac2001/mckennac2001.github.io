@@ -247,7 +247,7 @@ function detectBrowser() {
 	//var mapdiv = document.getElementById("mapcanvas");
 
 	if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
-		//alert("its a phone=" + useragent);
+		alert("its a phone=" + useragent);
 		
 		// Dynamically chage the body size to 100%
 		$('body').css('width', '100%');
